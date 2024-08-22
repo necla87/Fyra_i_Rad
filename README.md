@@ -4,7 +4,7 @@
 ## Board / Detailed Specs
 "As a user I want the Board class to manage setting up the board, handle moves on the board, displaying the board and have an opportunity to have a new game in board. If the players got a draw, the game should inform the players via an alert.
 Players should take turns to play the game. If the game is over, the player is not able to continue to play the game.
-
+Player should write the column number (1-7) to place X/O
 "
 
 ### Tested

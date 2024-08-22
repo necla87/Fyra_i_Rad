@@ -33,7 +33,7 @@ export default class App {
       let player = this.gameBoard.currentPlayerColor === 'X'
         ? this.playerX : this.playerO;
       let move = prompt(
-        `Ange ditt drag ${player.color} ${player.name} - skriv in rad,kolumn: `
+        `Ange ditt drag ${player.color} ${player.name} - välj ett kolumn mellan 1-7: `
       );
       // convert row and columns to numbers and zero-based indexes
       let [row, column] = move.split(',').map(x => +x.trim() - 1);
