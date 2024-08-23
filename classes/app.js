@@ -22,8 +22,9 @@ export default class App {
     console.clear();
     console.log('Fyra i rad\n');
     this.playerX = new Player(prompt('Spelare X:s namn: '), 'X');
-    this.playerO = new Player(prompt('Spelare O:s namn: '), 'O');
+    this.playerO = new Player(prompt('Spelare O:s namn: '), 'O'); //alert if the players do not write anything
   }
+  //alert the players that they need to write a string and not a number
 
   startGameLoop() {
     // game loop - runs until the game is over
@@ -33,7 +34,7 @@ export default class App {
       let player = this.gameBoard.currentPlayerColor === 'X'
         ? this.playerX : this.playerO;
       let move = prompt(
-        `Ange ditt drag ${player.color} ${player.name} - välj ett kolumn mellan 1-7: `
+        `Ange ditt drag ${player.color} ${player.name} - välj ett kolumn mellan 1-7: ` //alert the players to write a number, not a string
       );
       // convert row and columns to numbers and zero-based indexes
       let [row, column] = move.split(',').map(x => +x.trim() - 1);
