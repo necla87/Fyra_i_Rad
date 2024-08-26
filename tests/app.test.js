@@ -21,7 +21,7 @@ test("App ska fråga efter spelarnas namn", () => {
 test("Kolla att spelarna har skrivit in något namn", () => {
   // Sätter mockade svar som spelarnamn
   const playerNames = ['William', 'Erika', undefined, 'end-test'];
-
+  const playerNotUndefined = new App() //NYTT
   // Loopar igenom alla spelarnamn för att kolla om något är undefined
   for (let i = 0; i < playerNames.length; i++) {
     if (playerNames[i] === undefined) {
@@ -37,7 +37,7 @@ test("Kolla att spelarna har skrivit in något namn", () => {
     return new App();
   }
   if (value === 'William', 'Erika') {
-    return startGameLoop();
+    return playerNotUndefined.startGameLoop(); //NYTT
   }
 });
 
@@ -56,7 +56,7 @@ test("Programmet ska fråga spelarna om de vill spela igen (ja/nej)", () => {
 test("Kolla att spelarna har skrivit in något namn", () => {
   // Sätter mockade svar som spelarnamn
   const playerString = ['William', 'Erika', Number, 'end-test'];
-
+  const playerNotNumbers = new App() //NYTT
   // Loopar igenom alla spelarnamn för att kolla om något är undefined
   for (let i = 0; i < playerString.length; i++) {
     if (playerString[i] === Number) {
@@ -72,7 +72,7 @@ test("Kolla att spelarna har skrivit in något namn", () => {
     return new App();
   }
   if (value === 'William', 'Erika') {
-    return startGameLoop();
+    return playerNotNumbers.startGameLoop(); //NYTT
   }
 });
 
