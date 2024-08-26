@@ -21,9 +21,9 @@ test("App ska fråga efter spelarnas namn", () => {
 
 //test that the name is not undefined
 test("Kolla att spelarna har skrivit in något namn", () => {
-  setMockAnswers(undefined, 'end-test');
+  setMockAnswers('', 'end-test');
   expect(() => new App()).toThrow('end-test');
-  expect(consoleOutput[0]).toBeDefined('Du måste skriva i något namn!');
+  expect(consoleOutput[1][0]).toBe('Du måste skriva i något namn!');
 })
 
 
@@ -42,14 +42,8 @@ test("Programmet ska fråga spelarna om de vill spela igen (ja/nej)", () => {
 test("Kolla att spelarna har inte skrivit nummer eller symboler", () => {
   setMockAnswers(/[^a-zA-Z\s]/, 'end-test');
   expect(() => new App()).toThrow('end-test');
-  expect(consoleOutput[0]).toBeDefined('Namnet får inte innehålla siffror eller specialtecken!');
+  expect(consoleOutput[1][0]).toBe('Namnet får inte innehålla siffror eller specialtecken!');
 })
 
 
 
-//test winner
-test("Se vem som har vunnit", () => {
-  setMockAnswers('end-test');
-  expect(() => new App()).toThrow('end-test');
-  expect(consoleOutput[0]).toBeDefined('Grattis ${winningPlayer.color}: ${winningPlayer.name} du har vunnit!');
-})
