@@ -17,29 +17,14 @@ test("App ska fråga efter spelarnas namn", () => {
   expect(promptQuestions[1]).toBe('Spelare O:s namn: ');
 })
 
+
+
 //test that the name is not undefined
 test("Kolla att spelarna har skrivit in något namn", () => {
-  // Sätter mockade svar som spelarnamn
-  const playerNames = ['William', 'Erika', undefined, 'end-test'];
-  const playerNotUndefined = new App() //NYTT
-  // Loopar igenom alla spelarnamn för att kolla om något är undefined
-  for (let i = 0; i < playerNames.length; i++) {
-    if (playerNames[i] === undefined) {
-      console.error(`Error: Spelaren på index ${i} har inget namn.`);
-      return;  // Avbryter testet om ett namn är undefined
-    }
-  }
-
-  // Om alla namn är definierade, fortsätt med spelet
-  setMockAnswers(...playerNames);
-
-  if (value === undefined) {
-    return new App();
-  }
-  if (value === 'William', 'Erika') {
-    return playerNotUndefined.startGameLoop(); //NYTT
-  }
-});
+  setMockAnswers(undefined, 'end-test');
+  expect(() => new App()).toThrow('end-test');
+  expect(consoleOutput[0]).toBeDefined('Du måste skriva i något namn!');
+})
 
 
 
@@ -52,33 +37,19 @@ test("Programmet ska fråga spelarna om de vill spela igen (ja/nej)", () => {
 })
 
 
+
 //test that the players write a string and not a number
-test("Kolla att spelarna har skrivit in något namn", () => {
-  // Sätter mockade svar som spelarnamn
-  const playerString = ['William', 'Erika', Number, 'end-test'];
-  const playerNotNumbers = new App() //NYTT
-  // Loopar igenom alla spelarnamn för att kolla om något är undefined
-  for (let i = 0; i < playerString.length; i++) {
-    if (playerString[i] === Number) {
-      console.error(`Error: Spelaren ${i} skrev med nummer, skriv med bokstäver istället!.`);
-      return;  // Avbryter testet om ett namn är undefined
-    }
-  }
-
-  // Om alla namn är definierade, fortsätt med spelet
-  setMockAnswers(...playerString);
-
-  if (value === Number) {
-    return new App();
-  }
-  if (value === 'William', 'Erika') {
-    return playerNotNumbers.startGameLoop(); //NYTT
-  }
-});
+test("Kolla att spelarna har inte skrivit nummer eller symboler", () => {
+  setMockAnswers(/[^a-zA-Z\s]/, 'end-test');
+  expect(() => new App()).toThrow('end-test');
+  expect(consoleOutput[0]).toBeDefined('Namnet får inte innehålla siffror eller specialtecken!');
+})
 
 
-//test winner - FORTSÄTT!
-/*test("Se vem som har vunnit", () => {
-  const playerWinCheck = ['X', 'O']
 
-})*/
+//test winner
+test("Se vem som har vunnit", () => {
+  setMockAnswers('end-test');
+  expect(() => new App()).toThrow('end-test');
+  expect(consoleOutput[0]).toBeDefined('Grattis ${winningPlayer.color}: ${winningPlayer.name} du har vunnit!');
+})
