@@ -50,10 +50,6 @@ export default class App {
     return this.startGameLoop();
   }
 
-    
-    
-  //alert the players that they need to write a string and not a number
-
   startGameLoop() {
     // game loop - runs until the game is over
     
