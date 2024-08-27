@@ -38,7 +38,7 @@ test("Programmet ska fråga spelarna om de vill spela igen (ja/nej)", () => {
 
 
 
-//test that the players write a string and not a number
+//test that the players write a string and not numbers or/and symbols
 test("Kolla att spelarna har inte skrivit nummer eller symboler", () => {
   setMockAnswers(/[^a-zA-Z\s]/, 'end-test');
   expect(() => new App()).toThrow('end-test');

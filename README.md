@@ -9,7 +9,14 @@ It is very uncommon for the players to get a draw, but if it happens the program
 "
 
 ### Tested
-
+1.1.Check that the name is not undefined (app.js)
+1.2.Should only allow moves for the current player (gameBoard.js)
+1.3.Check that the app asks for the players name (app.js)
+1.4.Check that the players write a string and not numbers or/and symbols (app.js)
+2.1.Check that register the move correctly (gameBoard.js)
+3.2.Console.log if a player wins, so players will not be able to continue playing.(gameBoard.js)
+5.Should announce a draw when the board is full with no winner (gameBoard.js)
+6.Console.log and ask the players if they want to play again, if yes a new game should start from scratch. If no the program should end. (app.js)
 
 
 #### Problems
@@ -17,13 +24,4 @@ It is very uncommon for the players to get a draw, but if it happens the program
 
 
 ##### Not Tested
-1.1.check that the name is not undefined (players.js)
-1.2.Kolla att det blir varannan gång (gameBoard.js)
-2.1.Check that the users board is registered correctly on the gameboard (rules.js)
-3.1.Alert if the placement is unavailable (rules.js)
-3.2.Alert if a player wins, so players will not be able to continue playing.(gameBoard.js)
-4.Check who is the winner (gameBoard.js)
-5.Alert if the game is a draw (gameBoard.js)
-6.Alert and ask the players if they want to play again, if yes a new game should start from scratch. If no the program should end. (gameBoard.js)
-
-
+4.Check who is the winner (gameboard.js)
