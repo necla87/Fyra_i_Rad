@@ -9,7 +9,7 @@ import App from '../classes/app.js';
 
 
 
-test("App ska fråga efter spelarnas namn", () => {
+test("The program should ask for the players name", () => {
   setMockAnswers('William', 'Erika', 'end-test');
   expect(() => new App()).toThrow('end-test');
   expect(promptQuestions[0]).toBe('Spelare X:s namn: ');
@@ -18,7 +18,7 @@ test("App ska fråga efter spelarnas namn", () => {
 
 
 
-test("Kolla att spelarna har skrivit in något namn", () => {
+test("Check that the players have written a name", () => {
   setMockAnswers('', 'end-test');
   expect(() => new App()).toThrow('end-test');
   expect(consoleOutput[1][0]).toBe('Du måste skriva i något namn!');
@@ -26,7 +26,7 @@ test("Kolla att spelarna har skrivit in något namn", () => {
 
 
 
-test("Programmet ska fråga spelarna om de vill spela igen (ja/nej)", () => {
+test("The program should ask if the players want to play again (ja/nej)", () => {
   setMockAnswers('ja', 'nej', 'end-test');
     if ('nej') {
       return 'end-test'; }
@@ -35,7 +35,7 @@ test("Programmet ska fråga spelarna om de vill spela igen (ja/nej)", () => {
 
 
 
-test("Kolla att spelarna har inte skrivit nummer eller symboler", () => {
+test("Check that the players do not use numbers or/and symbols", () => {
   setMockAnswers(/[^a-zA-Z\s]/, 'end-test');
   expect(() => new App()).toThrow('end-test');
   expect(consoleOutput[1][0]).toBe('Namnet får inte innehålla siffror eller specialtecken!');
