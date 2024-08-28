@@ -21,13 +21,40 @@ export default class App {
   createPlayers() {
     console.clear();
     console.log('Fyra i rad\n');
-    this.playerX = new Player(prompt('Spelare X:s namn: '), 'X');
-    this.playerO = new Player(prompt('Spelare O:s namn: '), 'O'); //alert if the players do not write anything
+
+    let playerXname;
+    while (!playerXname) {
+      playerXname = prompt('Spelare X:s namn: ');
+      if (!playerXname) {
+        console.log("Du måste skriva i något namn!");
+      } else if (/[^a-zA-Z\s]/.test(playerXname)) { // Check for non-alphabetic characters
+        console.log("Namnet får inte innehålla siffror eller specialtecken!");
+        playerXname = null; // Reset player name if invalid
+      }
+    }
+
+    let playerOname;
+    while (!playerOname) {
+      playerOname = prompt('Spelare O:s namn: ');
+      if (!playerOname) {
+        console.log("Du måste skriva i något namn!");
+      } else if (/[^a-zA-Z\s]/.test(playerOname)) { // Check for non-alphabetic characters
+        console.log("Namnet får inte innehålla siffror eller specialtecken!");
+        playerOname = null; // Reset player name if invalid
+      }
+    }
+
+    this.playerX = new Player(playerXname, "X");
+    this.playerO = new Player(playerOname, "O");
+
+    return this.startGameLoop();
   }
-  //alert the players that they need to write a string and not a number
 
   startGameLoop() {
     // game loop - runs until the game is over
+    
+    this.gameBoard = new gameBoard();
+
     while (!this.gameBoard.gameOver) {
       console.clear();
       this.gameBoard.render();
