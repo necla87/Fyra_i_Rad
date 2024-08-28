@@ -1,86 +1,85 @@
-import { test, expect } from 'vitest';
+import { test, expect, vi } from 'vitest';
 import GameBoard from '../classes/gameBoard.js';
 import {
   promptQuestions,
   consoleOutput,
   setMockAnswers,
-  log
 } from './helpers/mockPrompt.js';
 import App from '../classes/app.js';
 
 test('should register a move correctly', () => {
   const board = new GameBoard();
   board.makeMove('X', 3);
-  expect(board.matrix[5][3]).toBe('X'); // The disc should be at the bottom of column 3
+  expect(board.matrix[5][3]).toBe('X'); 
 });
 
 test('should only allow moves for the current player', () => {
   const board = new GameBoard();
   board.makeMove('X', 0);
-  board.makeMove('O', 1); // O's turn, valid
-  expect(board.currentPlayerColor).toBe('X'); // X's turn now
-  board.makeMove('X', 2); // X's turn, valid
-  board.makeMove('X', 3); // Invalid move, should be prevented
-  expect(board.currentPlayerColor).toBe('O'); // O's turn
+  board.makeMove('O', 1); 
+  expect(board.currentPlayerColor).toBe('X'); 
+  board.makeMove('X', 2); 
+  board.makeMove('X', 3); 
+  expect(board.currentPlayerColor).toBe('O'); 
 });
 
 test('should prevent moves after the game is won', () => {
-  // Arrange: Set up the mock answers
+  
   setMockAnswers(
-    'Player 1',   // Player 1's name
-    'Player 2',   // Player 2's name
-    '1', '1',     // X and O move in column 1
-    '2', '2',     // X and O move in column 2
-    '3', '3',     // X and O move in column 3
-    '4',          // X moves in column 4 (winning move)
-    '5',          // Try to make another move after the game is won
-    'nej'         // End the game
+    'Player 1',   
+    'Player 2',   
+    '1', '1',   
+    '2', '2',    
+    '3', '3',  
+    '4',          
+    '5',          
+    'nej'        
   );
 
-  // Act: Run the app
+  
   try {
-    new App(); // Run the application flow
+    new App(); 
   } catch (e) {
-    if (e.message !== 'end-test') throw e; // Handle the 'end-test' signal if it's thrown
+    if (e.message !== 'end-test') throw e; 
   }
 
-  // Assert: Check that no move is made after the game is won
+  
   expect(consoleOutput).toContainEqual(['Grattis X: Player 1 du har vunnit!']);
 
-  // Ensure no more moves are accepted after the game is won
+  
   expect(promptQuestions[promptQuestions.length - 1]).not.toContain('välj ett kolumn');
 });
 test('should announce a draw when the board is full with no winner', () => {
-  // Arrange: Create a new game board instance
+  
   const board = new GameBoard();
 setMockAnswers(
-  'Player X',  // Name for player X
-  'Player O',  // Name for player O
-  '1',         // Move for player X
-  '2',         // Move for player O
-  '3',         // Continue moves as needed
-  '4',         // Continue moves as needed
-  '5',         // Continue moves as needed
-  '6',         // Continue moves as needed
-  '7',         // Continue moves as needed
-  '1',         // Continue moves as needed
-  '2',         // Continue moves as needed
-  '3',         // Continue moves as needed
-  '4',         // Continue moves as needed
-  '5',         // Continue moves as needed
-  '6',         // Continue moves as needed
-  '7',         // Continue moves as needed
-  '1',         // Continue moves as needed
-  '2',         // Continue moves as needed
-  '3',         // Continue moves as needed
-  '4',         // Continue moves as needed
-  '5',         // Continue moves as needed
-  '6',         // Continue moves as needed
-  '7',         // Continue moves as needed
-  'end-test'   // End the test
+  'Player X',  
+  'Player O',  
+  '1',        
+  '2',         
+  '3',         
+  '4',         
+  '5',        
+  '6',         
+  '7',         
+  '1',         
+  '2',         
+  '3',         
+  '4',         
+  '5',         
+  '6',         
+  '7',        
+  '1',         
+  '2',         
+  '3',         
+  '4',         
+  '5',         
+  '6',         
+  '7',         
+  'end-test'   
 );
 
-// Simulate a board state that results in a draw
+
 const simulateBoardForDraw = () => {
   board.matrix = [
     ['X', 'O', 'X', 'X', 'O', 'X', 'O'],
@@ -95,12 +94,100 @@ const simulateBoardForDraw = () => {
   board.winner = false;
 };
 
-// Act: Simulate the board configuration
 simulateBoardForDraw();
 
-// Assert: Check the expected results
+
 expect(board.isADraw).toBe(true);
 expect(board.gameOver).toBe(true);
 expect(board.winner).toBe(false);
 
+});
+
+
+test('Horizontal win', () => {
+  let gameBoard = new GameBoard();
+  gameBoard.matrix[5][0] = 'X';
+  gameBoard.matrix[5][1] = 'X';
+  gameBoard.matrix[5][2] = 'X';
+  gameBoard.matrix[5][3] = 'X';
+  console.log('Test 1: Horizontal win');
+  console.assert(gameBoard.winCheck() === 'X', 'Failed: Expected X to win');
+});
+
+test('Vertical win', () => {
+  let gameBoard = new GameBoard();
+  gameBoard.matrix[5][0] = 'O';
+  gameBoard.matrix[4][0] = 'O';
+  gameBoard.matrix[3][0] = 'O';
+  gameBoard.matrix[2][0] = 'O';
+  console.log('Test 2: Vertical win');
+  console.assert(gameBoard.winCheck() === 'O', 'Failed: Expected O to win');
+});
+
+test('Diagonal down-right win', () => {
+  let gameBoard = new GameBoard();
+  gameBoard.matrix[0][0] = 'X';
+  gameBoard.matrix[1][1] = 'X';
+  gameBoard.matrix[2][2] = 'X';
+  gameBoard.matrix[3][3] = 'X';
+  console.log('Test 3: Diagonal down-right win');
+  console.assert(gameBoard.winCheck() === 'X', 'Failed: Expected X to win');
+});
+
+test('Diagonal down-left win', () => {
+  let gameBoard = new GameBoard();
+  gameBoard.matrix[0][3] = 'O';
+  gameBoard.matrix[1][2] = 'O';
+  gameBoard.matrix[2][1] = 'O';
+  gameBoard.matrix[3][0] = 'O';
+  console.log('Test 4: Diagonal down-left win');
+  console.assert(gameBoard.winCheck() === 'O', 'Failed: Expected O to win');
+});
+
+test('No win (empty board)', () => {
+  let gameBoard = new GameBoard();
+  console.log('Test 5: No win (empty board)');
+  console.assert(gameBoard.winCheck() === false, 'Failed: Expected no winner');
+});
+
+test('No win (incomplete line)', () => {
+  let gameBoard = new GameBoard();
+  gameBoard.matrix[5][0] = 'X';
+  gameBoard.matrix[5][1] = 'X';
+  gameBoard.matrix[5][2] = 'X';
+  console.log('Test 6: No win (incomplete line)');
+  console.assert(gameBoard.winCheck() === false, 'Failed: Expected no winner');
+});
+
+console.log('All tests completed.');
+
+
+test('should announce the winner with "du har vunnit" message', () => {
+  
+  setMockAnswers(
+    'Player X',  
+    'Player O',  
+    '1',         
+    '1',         
+    '2',         
+    '2',         
+    '3',        
+    '3',         
+    '4',         
+    'end-test'   
+  );
+
+  try {
+    const app = new App();
+  } catch (error) {
+    if (error.message !== 'end-test') {
+      throw error;
+    }
+  }
+
+  const winnerMessage = consoleOutput.find(line =>
+    line.includes('Grattis X: Player X du har vunnit!')
+  );
+
+  expect(winnerMessage).toBeTruthy(); 
 });
