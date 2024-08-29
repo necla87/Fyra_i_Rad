@@ -1,17 +1,16 @@
-import prompt from '../helpers/prompt.js'; //behöver ändras till mock-prompt, ska vi göra mappar? Om inte ta bort "helpers"
+import prompt from '../helpers/prompt.js'; 
 import GameBoard from './gameBoard.js';
 import Player from './players.js';
 
 export default class App {
 
   constructor() {
-    // a while-loop that let us play the game repeatedly
+  
     while (true) {
       this.createPlayers();
       this.gameBoard = new GameBoard();
       this.startGameLoop();
       this.gameOverScreen();
-      // ask if we should play again
       console.log('');
       let playAgain = prompt('Vill ni spela igen? (ja/nej)? ');
       if (playAgain !== 'ja') { break; }
@@ -27,9 +26,9 @@ export default class App {
       playerXname = prompt('Spelare X:s namn: ');
       if (!playerXname) {
         console.log("Du måste skriva i något namn!");
-      } else if (/[^a-zA-Z\s]/.test(playerXname)) { // Check for non-alphabetic characters
+      } else if (/[^a-zA-Z\s]/.test(playerXname)) { 
         console.log("Namnet får inte innehålla siffror eller specialtecken!");
-        playerXname = null; // Reset player name if invalid
+        playerXname = null; 
       }
     }
 
@@ -38,20 +37,19 @@ export default class App {
       playerOname = prompt('Spelare O:s namn: ');
       if (!playerOname) {
         console.log("Du måste skriva i något namn!");
-      } else if (/[^a-zA-Z\s]/.test(playerOname)) { // Check for non-alphabetic characters
+      } else if (/[^a-zA-Z\s]/.test(playerOname)) { 
         console.log("Namnet får inte innehålla siffror eller specialtecken!");
-        playerOname = null; // Reset player name if invalid
+        playerOname = null; 
       }
     }
 
     this.playerX = new Player(playerXname, "X");
     this.playerO = new Player(playerOname, "O");
 
-    // return this.startGameLoop();
   }
 
   startGameLoop() {
-    // game loop - runs until the game is over
+   
     
      this.gameBoard = new GameBoard();
 
@@ -61,17 +59,15 @@ export default class App {
       let player = this.gameBoard.currentPlayerColor === 'X'
         ? this.playerX : this.playerO;
       let move = prompt(
-        `Ange ditt drag ${player.color} ${player.name} - välj ett kolumn mellan 1-7: ` //alert the players to write a number, not a string
+        `Ange ditt drag ${player.color} ${player.name} - välj ett kolumn mellan 1-7: ` 
       );
-      // convert row and columns to numbers and zero-based indexes
+      
       let [row, column] = move.split(',').map(x => +x.trim() - 1);
-      // try to make the move
       this.gameBoard.makeMove(player.color, row, column);
     }
   }
 
   gameOverScreen() {
-    // the game is over, tell the player who has one or if we have a draw
     console.clear();
     this.gameBoard.render();
     if (this.gameBoard.winner) {
