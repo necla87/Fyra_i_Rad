@@ -1,5 +1,5 @@
 import prompt from '../helpers/prompt.js'; //behöver ändras till mock-prompt, ska vi göra mappar? Om inte ta bort "helpers"
-import gameBoard from './gameBoard.js';
+import GameBoard from './gameBoard.js';
 import Player from './players.js';
 
 export default class App {
@@ -8,7 +8,7 @@ export default class App {
     // a while-loop that let us play the game repeatedly
     while (true) {
       this.createPlayers();
-      this.gameBoard = new gameBoard();
+      this.gameBoard = new GameBoard();
       this.startGameLoop();
       this.gameOverScreen();
       // ask if we should play again
@@ -47,13 +47,13 @@ export default class App {
     this.playerX = new Player(playerXname, "X");
     this.playerO = new Player(playerOname, "O");
 
-    return this.startGameLoop();
+    // return this.startGameLoop();
   }
 
   startGameLoop() {
     // game loop - runs until the game is over
     
-    this.gameBoard = new gameBoard();
+     this.gameBoard = new GameBoard();
 
     while (!this.gameBoard.gameOver) {
       console.clear();
