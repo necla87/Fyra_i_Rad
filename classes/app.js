@@ -1,5 +1,5 @@
 import prompt from '../helpers/prompt.js'; 
-import GameBoard from './gameBoard.js';
+import gameBoard from './gameBoard.js';
 import Player from './players.js';
 
 export default class App {
@@ -8,7 +8,7 @@ export default class App {
   
     while (true) {
       this.createPlayers();
-      this.gameBoard = new GameBoard();
+      this.gameBoard = new gameBoard();
       this.startGameLoop();
       this.gameOverScreen();
       console.log('');
@@ -51,7 +51,7 @@ export default class App {
   startGameLoop() {
    
     
-     this.gameBoard = new GameBoard();
+     this.gameBoard = new gameBoard();
 
     while (!this.gameBoard.gameOver) {
       console.clear();

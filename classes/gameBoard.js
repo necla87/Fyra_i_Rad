@@ -1,4 +1,4 @@
-export default class GameBoard {
+export default class gameBoard {
 
   constructor() {
     // Create a 6-row by 7-column board
