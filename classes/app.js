@@ -13,7 +13,7 @@ export default class App {
       this.gameOverScreen();
       console.log('');
       let playAgain = prompt('Vill ni spela igen? (ja/nej)? ');
-      if (playAgain !== 'ja') { break; }
+      if (playAgain !== 'ja') { console.log('Tack för att ni spelade!'); break; }
     }
   }
 

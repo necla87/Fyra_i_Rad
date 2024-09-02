@@ -27,12 +27,19 @@ test("Check that the players have written a name", () => {
 
 
 test("The program should ask if the players want to play again (ja/nej)", () => {
-  setMockAnswers('ja', 'nej', 'end-test');
-    if ('nej') {
-      return 'end-test'; }
-    if ('ja') { return new App; } 
+  setMockAnswers('William', 'Erika', '4', '3', '4', '3', '4', '3', '4', 'end-test');
+  expect(() => new App()).toThrow('end-test');
+  expect(promptQuestions[9]).toBe('Vill ni spela igen? (ja/nej)? ');
 })
 
+
+  
+test("The program should start a new game when the players write ja", () => {
+  setMockAnswers('William', 'Erika', '4', '3', '4', '3', '4', '3', '4', 'ja', 'end-test');
+  expect(() => new App()).toThrow('end-test');
+  expect(promptQuestions[10]).toBe('Spelare X:s namn: ');
+})
+ 
 
 
 test("Check that the players do not use numbers or/and symbols", () => {
