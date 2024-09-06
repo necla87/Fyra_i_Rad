@@ -1,0 +1,8 @@
+/* Basic setup - box sizing + get main to stay in the middle verically*/
+@import 'basic-setup.css';
+/* Styling for some common elements */
+@import 'common.css';
+/* The board */
+@import 'board.css';
+/* Dialogs */
+@import 'dialog.css';
