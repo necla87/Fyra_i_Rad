@@ -1,0 +1,8 @@
+body {
+  margin: 0;
+  background-color: #91cee2;
+  color: rgb(255, 255, 255);
+  font-family: 'Bebas Neue';
+  display: flex;
+  height: 100vh;
+}
