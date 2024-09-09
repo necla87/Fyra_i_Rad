@@ -1,14 +1,14 @@
-//import prompt from './helpers/prompt.js';
-import gameBoard from './gameBoard.js';
-import Player from './players.js';
+import Dialog from './Dialog.js';
+import Board from './Board.js';
+import Player from './Player.js';
 import sleep from './helpers/sleep.js';
 
 export default class App {
 
   constructor(playerX, playerO, whoStarts = 'X') {
     this.dialog = new Dialog();
-    this.gameBoard = new gameBoard(this);
-    this.gameBoard.currentPlayerColor = whoStarts;
+    this.board = new Board(this);
+    this.board.currentPlayerColor = whoStarts;
     this.whoStarts = whoStarts;
     this.setPlayAgainGlobals();
     if (playerX && playerO) {
@@ -24,39 +24,39 @@ export default class App {
     const okName = name => name.match(/[a-zåäöA-ZÅÄÖ]{2,}/);
     let playerName = '';
     while (!okName(playerName)) {
-      playerName = await this.dialog.ask(`Skriv in namn på spelaren ${color}:`);
+      playerName = await this.dialog.ask(`Enter the name of player ${color}:`);
       await sleep(500);
     }
-    this['Spelare' + color] = new Player(playerName, color);
+    this['player' + color] = new Player(playerName, color);
     if (color === 'X') { this.askForNames('O'); return; }
     this.namesEntered = true;
     this.render();
   }
 
-   namePossesive(name) {
-  //   // although not necessary, it's nice with a traditional
-  //   // possesive form of the name when it ends with an "s":
-  //   // i.e. "Thomas'" rather than "Thomas's" but "Anna's" :)
-     return name + (name.slice(-1).toLowerCase() !== 's' ? `'s` : `'`)
-   }
+  namePossesive(name) {
+    // although not necessary, it's nice with a traditional
+    // possesive form of the name when it ends with an "s":
+    // i.e. "Thomas'" rather than "Thomas's" but "Anna's" :)
+    return name + (name.slice(-1).toLowerCase() !== 's' ? `'s` : `'`)
+  }
 
   render() {
-    let color = this.gameBoard.currentPlayerColor;
+    let color = this.board.currentPlayerColor;
     let player = color === 'X' ? this.playerX : this.playerO;
     let name = player?.name || '';
 
     document.querySelector('main').innerHTML = /*html*/`
-      <h1>Fyra i rad</h1>
-      ${!this.gameBoard.gameOver && player ?
-        `<p>${color}: ${this.namePossesive(name)} tur...</p>`
-        : (this.namesEntered ? '' : '<p>Skriv in namn</p>')}
-      ${!this.gameBoard.gameOver ? '' : /*html*/`
-        ${!this.gameBoard.isADraw ? '' : `<p>Det blev oavgjort!</p>`}
-        ${!this.gameBoard.winner ? '' : `<p>${color}: ${name} vann!</p>`}
+      <h1>Tic-Tac-Toe</h1>
+      ${!this.board.gameOver && player ?
+        `<p>${color}: ${this.namePossesive(name)} turn...</p>`
+        : (this.namesEntered ? '' : '<p>Enter names</p>')}
+      ${!this.board.gameOver ? '' : /*html*/`
+        ${!this.board.isADraw ? '' : `<p>It's a tie...</p>`}
+        ${!this.board.winner ? '' : `<p>${color}: ${name} won!</p>`}
       `}
-      ${this.gameBoard.render()}
+      ${this.board.render()}
       <div class="buttons">
-        ${!this.gameBoard.gameOver ?
+        ${!this.board.gameOver ?
         this.renderQuitButton() :
         this.renderPlayAgainButtons()}
       </div>
@@ -68,16 +68,16 @@ export default class App {
 
     globalThis.quitGame = async () => {
       let answer = await this.dialog.ask(
-        'Vad vill du göra?',
-        ['Fortsätta', 'Spela igen', 'Skriv in nya spelare']
+        'What do you want to do?',
+        ['Continue the game', 'Play again', 'Enter new players']
       );
-      answer === 'Spela igen' && globalThis.playAgain();
-      answer === 'Skriv in nya spelare' && globalThis.newPlayers();
+      answer === 'Play again' && globalThis.playAgain();
+      answer === 'Enter new players' && globalThis.newPlayers();
     };
 
     return /*html*/`
       <div class="button" onclick="quitGame()">
-        Avsluta spelet
+        Quit this game
       </div>
     `;
   }
@@ -87,7 +87,7 @@ export default class App {
     globalThis.playAgain = async () => {
       let playerToStart = this.whoStarts === 'X' ? this.playerO : this.playerX;
       await this.dialog.ask(
-        `Det är ${this.namePossesive(playerToStart.name)} tur att börja!`, ['OK']);
+        `It's ${this.namePossesive(playerToStart.name)} turn to start!`, ['OK']);
       new App(this.playerX, this.playerO, playerToStart.color);
     }
     // start a-fresh with new players
@@ -98,8 +98,8 @@ export default class App {
     // why not use the button element? 
     // div tags are easier to style in a cross-browser-compatible way
     return /*html*/`
-      <div class="button" href="#" onclick="playAgain()">Spela igen</div>
-      <div class="button" href="#" onclick="newPlayers()">Nya spelare</div>
+      <div class="button" href="#" onclick="playAgain()">Play again</div>
+      <div class="button" href="#" onclick="newPlayers()">New players</div>
     `;
   }
 

@@ -1,3 +1,5 @@
+/* Google Fonts - Bebas Neue and Rock Salt */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rock+Salt&display=swap');
 /* Basic setup - box sizing + get main to stay in the middle verically*/
 @import 'basic-setup.css';
 /* Styling for some common elements */
