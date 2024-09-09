@@ -51,7 +51,7 @@ dialog {
 
   h2 {
     margin: 1vh 0 1vh;
-    font-size: 30px;
+    font-size: 40px;
     text-align: center;
   }
 
@@ -60,6 +60,7 @@ dialog {
     width: 100%;
     border-radius: 10px;
     font-family: 'Bebas Neue';
+    text-decoration-color: blue;
     font-size: 28px;
     padding: 10px;
     text-align: center;

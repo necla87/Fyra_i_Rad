@@ -1,7 +1,7 @@
 @import 'button.css';
-
+/*Rubrik på spel*/
 h1 {
-  font-family: 'Rock Salt';
+  font-family: 'Rock Salt'; 
   font-size: max(2vw, 3vh);
   text-align: center;
   margin-top: -2vh;
