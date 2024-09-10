@@ -24,7 +24,7 @@ export default class App {
     const okName = name => name.match(/[a-zåäöA-ZÅÄÖ]{2,}/);
     let playerName = '';
     while (!okName(playerName)) {
-      playerName = await this.dialog.ask(`Enter the name of player ${color}:`);
+      playerName = await this.dialog.ask(`Skriv in spelarens namn ${color}:`);
       await sleep(500);
     }
     this['player' + color] = new Player(playerName, color);
@@ -46,13 +46,13 @@ export default class App {
     let name = player?.name || '';
 
     document.querySelector('main').innerHTML = /*html*/`
-      <h1>Tic-Tac-Toe</h1>
+      <h1>4 i rad</h1>
       ${!this.board.gameOver && player ?
-        `<p>${color}: ${this.namePossesive(name)} turn...</p>`
-        : (this.namesEntered ? '' : '<p>Enter names</p>')}
+        `<p>${color}: ${this.namePossesive(name)} tur...</p>`
+        : (this.namesEntered ? '' : '<p>Skriv in namn</p>')}
       ${!this.board.gameOver ? '' : /*html*/`
-        ${!this.board.isADraw ? '' : `<p>It's a tie...</p>`}
-        ${!this.board.winner ? '' : `<p>${color}: ${name} won!</p>`}
+        ${!this.board.isADraw ? '' : `<p>Oavgjort...</p>`}
+        ${!this.board.winner ? '' : `<p>${color}: ${name} vann!</p>`}
       `}
       ${this.board.render()}
       <div class="buttons">
@@ -68,16 +68,16 @@ export default class App {
 
     globalThis.quitGame = async () => {
       let answer = await this.dialog.ask(
-        'What do you want to do?',
-        ['Continue the game', 'Play again', 'Enter new players']
+        'Vad vill du göra?',
+        ['Fortsätta', 'Spela igen', 'Nya spelare']
       );
-      answer === 'Play again' && globalThis.playAgain();
-      answer === 'Enter new players' && globalThis.newPlayers();
+      answer === 'Spela igen' && globalThis.playAgain();
+      answer === 'Nya spelare' && globalThis.newPlayers();
     };
 
     return /*html*/`
       <div class="button" onclick="quitGame()">
-        Quit this game
+        Avsluta
       </div>
     `;
   }
@@ -87,7 +87,7 @@ export default class App {
     globalThis.playAgain = async () => {
       let playerToStart = this.whoStarts === 'X' ? this.playerO : this.playerX;
       await this.dialog.ask(
-        `It's ${this.namePossesive(playerToStart.name)} turn to start!`, ['OK']);
+        `Det ${this.namePossesive(playerToStart.name)} tur att starta!`, ['OK']);
       new App(this.playerX, this.playerO, playerToStart.color);
     }
     // start a-fresh with new players
@@ -98,8 +98,8 @@ export default class App {
     // why not use the button element? 
     // div tags are easier to style in a cross-browser-compatible way
     return /*html*/`
-      <div class="button" href="#" onclick="playAgain()">Play again</div>
-      <div class="button" href="#" onclick="newPlayers()">New players</div>
+      <div class="button" href="#" onclick="playAgain()">Spela igen</div>
+      <div class="button" href="#" onclick="newPlayers()">Nya spelare</div>
     `;
   }
 
