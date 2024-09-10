@@ -1,22 +1,22 @@
 /*  https://www.bestcssbuttongenerator.com helped generate this css */
 
 .button {
-  box-shadow: 0px 0px 0px 2px #9fb4f2;
-  background: linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
-  background-color: #7892c2;
+  box-shadow: 0px 0px 0px 2px #9549a2;
+  background: linear-gradient(to bottom, #e599f4 5%, #60a1f0 100%);
+  background-color: #ed87f4;
   border-radius: 10px;
-  border: 1px solid #4e6096;
+  border: 1px solid #9c1d9e;
   display: inline-block;
   cursor: pointer;
   color: #ffffff;
-  font-family: 'Bebas Neue';
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: max(2vw, 3vh);
   padding: max(0.5vw, 1.5vh);
-  text-shadow: 0px 1px 0px #283966;
+  text-shadow: 0px 1px 0px #612866;
 
   &:hover {
-    background-color: #476e9e;
-    background: linear-gradient(to bottom, #476e9e 5%, #7892c2 100%);
+    background-color: #8bf9e8;
+    background: linear-gradient(to bottom, #dd79e7 5%, #9b4ea5 100%);
   }
 
   &:active {

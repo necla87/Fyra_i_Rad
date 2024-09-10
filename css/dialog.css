@@ -46,13 +46,15 @@ dialog {
 .dialog-content {
 
   max-width: 80vw;
-  min-width: min(80vw, 400px);
+  min-width: min(90vw, 400px);
   padding-bottom: 2vh;
+  background-color: rgb(171, 245, 240);
 
   h2 {
-    margin: 1vh 0 1vh;
-    font-size: 40px;
+    margin: -1vh 0 -1vh;
+    font-size: 50px;
     text-align: center;
+    color: rgb(133, 33, 155);
   }
 
   input {
