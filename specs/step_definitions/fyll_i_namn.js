@@ -2,9 +2,7 @@ import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 
 Given('att användaren är på startsidan', () => {
   // TODO: implement step
-  cy.visit('/')
-  
-  
+  cy.visit('/') 
 });
 
 When('användaren ska skriva in sina namn', () => {
@@ -31,5 +29,6 @@ Then('spelet ska visa i text vems tur det är att börja', () => {
   // TODO: implement step
   cy.wait(100)
   cy.get('p')
+  cy.wait(100)
   .contains('Tara')
 });
