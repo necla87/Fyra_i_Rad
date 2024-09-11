@@ -1,2 +1,2 @@
-import App from './classes/App.js';
+import App from './classes/app.js';
 new App();
