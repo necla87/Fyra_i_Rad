@@ -46,7 +46,7 @@ export default class App {
     let name = player?.name || '';
 
     document.querySelector('main').innerHTML = /*html*/`
-      <h1>4 i rad</h1>
+      <h1><span class="big-number">4</span> i rad</h1>
       ${!this.board.gameOver && player ?
         `<p>${color}: ${this.namePossesive(name)} tur...</p>`
         : (this.namesEntered ? '' : '<p>Skriv in namn</p>')}

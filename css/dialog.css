@@ -51,10 +51,12 @@ dialog {
   background-color: rgb(171, 245, 240);
 
   h2 {
-    margin: -1vh 0 -1vh;
-    font-size: 50px;
+    margin: 1vh 0 1vh;
+    font-size: 35px;
     text-align: center;
     color: rgb(133, 33, 155);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    padding-bottom: 1vw;
   }
 
   input {
@@ -66,6 +68,7 @@ dialog {
     font-size: 28px;
     padding: 10px;
     text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   }
 
   .buttons {
