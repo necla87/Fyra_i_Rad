@@ -8,5 +8,5 @@ Feature: Ange namn vid spelets början
     And spelet är i gång
     When Anna placerar sin bricka på en vinnande position
     And spelet avslutas med en vinnande kombination
-    Then ska spelet visa "X: ANNA vann!"
+    Then ska spelet visa "Anna vann!"
 

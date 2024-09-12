@@ -1,6 +1,6 @@
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 
-Given('att spelet har startat och användaren har angett sitt namn "ANNA" och "OLLE"', (name1, name2) => {
+Given('att spelet har startat och användaren har angett sitt namn "ANNA" och "OLLE"', () => {
   cy.visit('http://localhost:5500'); 
   cy.get('dialog').find('input[name="answer"]').type('ANNA{enter}');
   cy.wait(1000);
@@ -30,6 +30,6 @@ When('spelet avslutas med en vinnande kombination', () => {
   cy.get('p').should('contain.text', 'vann'); 
 });
 
-Then('ska spelet visa "X: ANNA vann!"', (expectedText) => {
-  cy.get('p').should('contain.text', expectedText); 
+Then('ska spelet visa {string}', (expectedText) => {
+ cy.get('main').find('p').should('contain.text', expectedText); 
 });
