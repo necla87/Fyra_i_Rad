@@ -20,8 +20,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@badeball/cypress-cucumber-preprocessor": "^20.1.2",
+    "@badeball/cypress-cucumber-preprocessor": "12.2",
     "@cypress/webpack-preprocessor": "5.12",
-    "cypress": "^13.14.2"
+    "cypress": "10.7"
   }
 }
