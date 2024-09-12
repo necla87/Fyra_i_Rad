@@ -24,20 +24,26 @@ export default class App {
     const okName = name => name.match(/[a-zåäöA-ZÅÄÖ]{2,}/);
     let playerName = '';
     while (!okName(playerName)) {
-      playerName = await this.dialog.ask(`Skriv in spelarens namn ${color}:`);
+      playerName = await this.dialog.ask(`Skriv in spelarens namn för ${color === 'X' ? 'spelare 1' : 'spelare 2'}:`);
+
+      // Capitalize the first letter and make the rest lowercase
+      playerName = playerName.charAt(0).toUpperCase() + playerName.slice(1).toLowerCase();
+
       await sleep(500);
     }
     this['player' + color] = new Player(playerName, color);
-    if (color === 'X') { this.askForNames('O'); return; }
+    if (color === 'X') {
+      this.askForNames('O');
+      return;
+    }
     this.namesEntered = true;
     this.render();
   }
 
+
+
   namePossesive(name) {
-    // although not necessary, it's nice with a traditional
-    // possesive form of the name when it ends with an "s":
-    // i.e. "Thomas'" rather than "Thomas's" but "Anna's" :)
-    return name + (name.slice(-1).toLowerCase() !== 's' ? `'s` : `'`)
+    return name + (name.slice(-1).toLowerCase() !== 's' ? 's' : '') + ' tur...';
   }
 
   render() {
@@ -46,22 +52,23 @@ export default class App {
     let name = player?.name || '';
 
     document.querySelector('main').innerHTML = /*html*/`
-      <h1><span class="big-number">4</span> i rad</h1>
-      ${!this.board.gameOver && player ?
-        `<p>${color}: ${this.namePossesive(name)} tur...</p>`
+    <h1><span class="big-number">4</span> i rad</h1>
+    ${!this.board.gameOver && player ?
+        `<p>${this.namePossesive(name)}</p>` 
         : (this.namesEntered ? '' : '<p>Skriv in namn</p>')}
-      ${!this.board.gameOver ? '' : /*html*/`
-        ${!this.board.isADraw ? '' : `<p>Oavgjort...</p>`}
-        ${!this.board.winner ? '' : `<p>${color}: ${name} vann!</p>`}
-      `}
-      ${this.board.render()}
-      <div class="buttons">
-        ${!this.board.gameOver ?
-        this.renderQuitButton() :
-        this.renderPlayAgainButtons()}
-      </div>
-    `;
+    ${!this.board.gameOver ? '' : /*html*/`
+      ${!this.board.isADraw ? '' : `<p>Oavgjort...</p>`}
+      ${!this.board.winner ? '' : `<p>${name} vann!</p>`} <!-- Updated winner message -->
+    `}
+    ${this.board.render()}
+    <div class="buttons">
+      ${!this.board.gameOver ? this.renderQuitButton() : this.renderPlayAgainButtons()}
+    </div>
+  `;
   }
+
+
+
 
   renderQuitButton() {
     if (!this.namesEntered) { return ''; }
@@ -83,16 +90,24 @@ export default class App {
   }
 
   setPlayAgainGlobals() {
-    // play again 
     globalThis.playAgain = async () => {
+      // Determine which player will start
       let playerToStart = this.whoStarts === 'X' ? this.playerO : this.playerX;
+
+      // Display the message with the player's name and role
       await this.dialog.ask(
-        `Det ${this.namePossesive(playerToStart.name)} tur att starta!`, ['OK']);
+        `Det är ${playerToStart.name}s tur att starta som ${playerToStart.color === 'X' ? 'Spelare 1' : 'Spelare 2'}!`,
+        ['OK']
+      );
+
+      // Start a new game with the current players
       new App(this.playerX, this.playerO, playerToStart.color);
-    }
-    // start a-fresh with new players
+    };
+
     globalThis.newPlayers = () => new App();
   }
+
+
 
   renderPlayAgainButtons() {
     // why not use the button element? 
