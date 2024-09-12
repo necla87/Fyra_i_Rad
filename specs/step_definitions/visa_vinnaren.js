@@ -30,7 +30,6 @@ When('spelet avslutas med en vinnande kombination', () => {
   cy.get('p').should('contain.text', 'vann'); 
 });
 
-
 Then('ska spelet visa "X: ANNA vann!"', (expectedText) => {
   cy.get('p').should('contain.text', expectedText); 
 });
