@@ -1,22 +1,20 @@
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
-const playerNames = { player1: 'spelare1', player2: 'spelare2' };
-
 // Step: Navigera till spelsidan
 Given('Användaren navigerar till spelsidan', function () {
-  console.log('Navigating to the game page');
-  cy.visit('/');
   cy.visit('/');
 });
 
 // Step: Skriv in ett namn för spelare1 och klicka på enter
 Given('Användaren skriver in ett namn för spelare1 och klickar på enter', function () {
   cy.get('dialog').find('input[name="answer"]').type('spelare1{enter}');
+  cy.wait(1000);
 });
 
 // Step: Skriv in ett namn för spelare2 och klicka på enter
 Given('Användaren skriver in ett namn för spelare2 och klickar på enter', function () {
   cy.get('dialog').find('input[name="answer"]').type('spelare2{enter}');
+  cy.wait(1000);
 });
 
 // Step: Spelare1 klickar på kolumn 3 för att placera sin bricka
