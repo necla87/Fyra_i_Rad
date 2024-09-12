@@ -15,27 +15,25 @@ Given('Användaren anger ett namn för spelare2 och trycker på enter', () => {
 });
 
 When('Spelbrädet är fyllt och ingen spelare har vunnit', () => {
-  cy.wait(500); cy.get('.board').find('.cell').eq(0).click(); // Cell 0
-  cy.wait(500); cy.get('.board').find('.cell').eq(1).click(); // Cell 1
-  cy.wait(500); cy.get('.board').find('.cell').eq(2).click(); // Cell 2
-  cy.wait(500); cy.get('.board').find('.cell').eq(7).click(); // Cell 7
-  cy.wait(500); cy.get('.board').find('.cell').eq(8).click(); // Cell 8
-  cy.wait(500); cy.get('.board').find('.cell').eq(9).click(); // Cell 9
-  cy.wait(500); cy.get('.board').find('.cell').eq(14).click(); // Cell 14
-  cy.wait(500); cy.get('.board').find('.cell').eq(15).click(); // Cell 15
-  cy.wait(500); cy.get('.board').find('.cell').eq(16).click(); // Cell 16
-  cy.wait(500); cy.get('.board').find('.cell').eq(21).click(); // Cell 21
-  cy.wait(500); cy.get('.board').find('.cell').eq(22).click(); // Cell 22
-  cy.wait(500); cy.get('.board').find('.cell').eq(23).click(); // Cell 23
-  cy.wait(500); cy.get('.board').find('.cell').eq(28).click(); // Cell 28
-  cy.wait(500); cy.get('.board').find('.cell').eq(29).click(); // Cell 29
-  cy.wait(500); cy.get('.board').find('.cell').eq(30).click(); // Cell 30
-  cy.wait(500); cy.get('.board').find('.cell').eq(35).click(); // Cell 35
-  cy.wait(500); cy.get('.board').find('.cell').eq(36).click(); // Cell 36
-  cy.wait(500); cy.get('.board').find('.cell').eq(37).click(); // Cell 37
+ 
+  const cellsToClick = [
+    0, 0, 0, 0, 0, 0, 
+    1, 1, 1, 1, 1, 1, 
+    2, 2, 2, 2, 2, 2, 
+    4, 3, 3, 3, 3, 3, 
+    3, 4, 4, 4, 4, 4, 
+    5, 5, 5, 5, 5, 5, 
+    6, 6, 6, 6, 6, 6  
+  ];
 
+  cellsToClick.forEach((cellIndex, i) => {
+    cy.wait(500); 
+    cy.get('.board').find('.cell').eq(cellIndex).click();
+  });
 });
 
-Then('Ska användaren se en text som säger {string}', (a) => {
-  cy.get('main').find('p').contains('Oavgjort...');
+
+Then('Ska användaren se en text som säger {string}', (expectedText) => {
+  
+  cy.get('main').find('p').should('contain.text', expectedText);
 });
