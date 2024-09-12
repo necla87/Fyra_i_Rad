@@ -5,6 +5,7 @@ Given('att användaren är inne på hemsidan', () => {
   cy.visit('/')
 });
 
+
 When('spelarna har skrivit in sina namn', () => {
   // TODO: implement step
   cy.get('input[name="answer"]').type('Tara' + '{enter}');
@@ -12,15 +13,13 @@ When('spelarna har skrivit in sina namn', () => {
   cy.get('input[name="answer"]').type('Robin' + '{enter}');
 });
 
-// When('namnen registreras och sparas', () => {
-//   // TODO: implement step
-// });
 
 When('spelet startar', () => {
   // TODO: implement step
   cy.get('div.board')
     .should('be.visible');
 });
+
 
 When('det går att se vem som ska börja spelet', () => {
   // TODO: implement step
@@ -29,6 +28,7 @@ When('det går att se vem som ska börja spelet', () => {
   cy.wait(100)
     .contains('Tara')
 });
+
 
 When('man börjar spela', () => {
   // TODO: implement step
@@ -47,6 +47,7 @@ When('man börjar spela', () => {
   cy.get(':nth-child(3) > [onclick="makeMoveOnClick(2)"]').click();
 });
 
+
 When('någon av spelarna får fyra i rad, horizontellt, vertikalt eller diagonalt', () => {
   // TODO: implement step
   cy.get(':nth-child(6) > [onclick="makeMoveOnClick(2)"]')
@@ -55,9 +56,6 @@ When('någon av spelarna får fyra i rad, horizontellt, vertikalt eller diagonal
   cy.get(':nth-child(3) > [onclick="makeMoveOnClick(2)"]')
 });
 
-// Then('ska pjäserna börja blinka, pulsera och markeras', () => {
-//   // TODO: implement step
-// });
 
 Then('då dyker det upp en text där det står vem som har vunnit spelet', () => {
   // TODO: implement step
