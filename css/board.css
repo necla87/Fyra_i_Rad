@@ -1,30 +1,39 @@
 /* Basic styles for the game board */
 .board {
-  display: grid;
+  /*display: grid;
   grid-template-columns: repeat(7, 60px);
   /* 7 columns, adjust size as needed */
-  grid-template-rows: repeat(6, 60px);
+  /* //grid-template-rows: repeat(6, 60px); */
   /* 6 rows */
-  gap: 5px;
+  /* gap: 5px; */
   /* Gap between cells */
   background-color: #b97eb0;
   /* Background color of the board */
   padding: 10px;
   border-radius: 10px;
   margin: 0 auto;
+  width: 500px;
 }
-
+.board:after {
+  content: "";
+  visibility: hidden;
+  display: block;
+  height: 0;
+  clear: both;
+}
 /* Style for each row, primarily for internal structure */
 .row {
-  display: contents;
+  /* display: contents; */
   /* Allows each cell to align according to the board grid */
 }
 
 /* Style for each cell */
 .cell {
-  width: 60px;
-  height: 60px;
+  width: 12.28%;
+  float:left;
+  aspect-ratio: 1;
   border-radius: 50%;
+  margin: 1%;
   /* Make cells circular */
   background-color: #e0e0e0;
   /* Default background color */

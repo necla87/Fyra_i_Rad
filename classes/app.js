@@ -24,7 +24,7 @@ export default class App {
     const okName = name => name.match(/[a-zåäöA-ZÅÄÖ]{2,}/);
     let playerName = '';
     while (!okName(playerName)) {
-      playerName = await this.dialog.ask(`Skriv in spelarens namn för ${color === 'X' ? 'spelare 1' : 'spelare 2'}:`);
+      playerName = await this.dialog.ask(`Skriv in namn för ${color === 'X' ? 'spelare 1' : 'spelare 2'}:`);
 
       // Capitalize the first letter and make the rest lowercase
       playerName = playerName.charAt(0).toUpperCase() + playerName.slice(1).toLowerCase();
