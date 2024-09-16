@@ -1,7 +1,7 @@
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 
 Given('att användare är på start sidan', () => {
-  cy.visit('/')
+  cy.visit('/');
 });
 
 
@@ -19,40 +19,43 @@ When('spelet körs igång', () => {
 
 
 When('det går att se vems tur det är att börja', () => {
+  cy.wait(100);
+  cy.get('p');
   cy.wait(100)
-  cy.get('p')
-  cy.wait(100)
-    .contains('Tara')
+    .contains('Tara');
 });
 
 
 When('spelets körs igång', () => {
   cy.get(':nth-child(6) > [onclick="makeMoveOnClick(2)"]').click();
-  cy.wait(500)
+  cy.wait(500);
   cy.get(':nth-child(6) > [onclick="makeMoveOnClick(3)"]').click();
-  cy.wait(500)
+  cy.wait(500);
   cy.get(':nth-child(5) > [onclick="makeMoveOnClick(2)"]').click();
-  cy.wait(500)
+  cy.wait(500);
   cy.get(':nth-child(5) > [onclick="makeMoveOnClick(3)"]').click();
-  cy.wait(500)
+  cy.wait(500);
   cy.get(':nth-child(4) > [onclick="makeMoveOnClick(2)"]').click();
-  cy.wait(500)
+  cy.wait(500);
   cy.get(':nth-child(4) > [onclick="makeMoveOnClick(3)"]').click();
-  cy.wait(500)
+  cy.wait(500);
   cy.get(':nth-child(3) > [onclick="makeMoveOnClick(2)"]').click();
 });
 
 
 When('någon av spelarna får fyra i rad', () => {
-  cy.get(':nth-child(6) > [onclick="makeMoveOnClick(2)"]')
-  cy.get(':nth-child(5) > [onclick="makeMoveOnClick(2)"]')
-  cy.get(':nth-child(4) > [onclick="makeMoveOnClick(2)"]')
-  cy.get(':nth-child(3) > [onclick="makeMoveOnClick(2)"]')
+  cy.get(':nth-child(6) > [onclick="makeMoveOnClick(2)"]');
+  cy.get(':nth-child(5) > [onclick="makeMoveOnClick(2)"]');
+  cy.get(':nth-child(4) > [onclick="makeMoveOnClick(2)"]');
+  cy.get(':nth-child(3) > [onclick="makeMoveOnClick(2)"]');
 });
 
 
 Then('ska användaren få möjlighet att kunna välja nya spelare genom att trycka på knappen', () => {
-  cy.wait(2000)
+  cy.wait(2000);
   cy.get('[onclick="newPlayers()"]').click();
-  cy.wait(100)
+  cy.wait(100);
+  cy.get('dialog');
+  cy.get('input')
+    .should('be.visible');
 });

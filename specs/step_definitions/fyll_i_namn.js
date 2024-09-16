@@ -1,7 +1,7 @@
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 
 Given('att användaren är på startsidan', () => {
-  cy.visit('/') 
+  cy.visit('/');
 });
 
 
@@ -19,8 +19,8 @@ Then('spelet ska starta igång', () => {
 
 
 Then('spelet ska visa i text vems tur det är att börja', () => {
+  cy.wait(100);
+  cy.get('p');
   cy.wait(100)
-  cy.get('p')
-  cy.wait(100)
-  .contains('Tara')
+    .contains('Tara');
 });

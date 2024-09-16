@@ -1,7 +1,7 @@
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 
 Given('att användare är på första sidan', () => {
-   cy.visit('/')
+  cy.visit('/');
 });
 
 
@@ -19,32 +19,33 @@ When('spelet går igång', () => {
 
 
 When('det går att se vem tur det är att börja', () => {
+  cy.wait(100);
+  cy.get('p');
   cy.wait(100)
-  cy.get('p')
-  cy.wait(100)
-    .contains('Tara')
+    .contains('Tara');
 });
 
 
 When('man börjar spela spelet', () => {
   cy.get(':nth-child(6) > [onclick="makeMoveOnClick(2)"]').click();
-  cy.wait(500)
+  cy.wait(500);
   cy.get(':nth-child(6) > [onclick="makeMoveOnClick(3)"]').click();
-  cy.wait(500)
+  cy.wait(500);
   cy.get(':nth-child(5) > [onclick="makeMoveOnClick(2)"]').click();
-  cy.wait(500)
+  cy.wait(500);
   cy.get(':nth-child(5) > [onclick="makeMoveOnClick(3)"]').click();
 });
 
 
 When('spelaren trycker på avsluta under spelets gång', () => {
-  cy.wait(500)
+  cy.wait(500);
   cy.get('.button').click();
-  cy.wait(100)
+  cy.wait(100);
 });
 
 
 Then('ska spelaren få alternativet att trycka på knappen fortsätta', () => {
-  cy.wait(2000)
+  cy.wait(2000);
+  cy.get('form > .buttons');
   cy.get('.Fortsätta').click();
 });

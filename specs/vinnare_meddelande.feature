@@ -10,5 +10,5 @@ Feature: Få ett meddelande om vem som vunnit spelet
    And spelet startar
    And det går att se vem som ska börja spelet
    And man börjar spela
-   And någon av spelarna får fyra i rad, horizontellt, vertikalt eller diagonalt
+   And någon av spelarna får fyra i rad och vinner spelet
    Then då dyker det upp en text där det står vem som har vunnit spelet
