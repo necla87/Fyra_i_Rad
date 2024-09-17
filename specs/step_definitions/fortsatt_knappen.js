@@ -47,5 +47,5 @@ When('spelaren trycker på avsluta under spelets gång', () => {
 Then('ska spelaren få alternativet att trycka på knappen fortsätta', () => {
   cy.wait(2000);
   cy.get('form > .buttons');
-  cy.get('.Fortsätta').click();
+  cy.get('.Fortsätta').should('be.visible').click();
 });
