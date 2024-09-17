@@ -53,5 +53,5 @@ When('någon har vunnit spelet', () => {
 
 
 Then('användaren ska kunna trycka på knappen spela igen', () => {
-  cy.get('[onclick="playAgain()"]');
+  cy.get('[onclick="playAgain()"]').should('be.visible');
 });
