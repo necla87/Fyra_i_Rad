@@ -43,7 +43,7 @@ Then('användaren ska få upp tre alternativa knappar att välja', () => {
   cy.wait(2000);
   cy.get('.dialog-content');
   cy.get('form > .buttons');
-  cy.get('.Fortsätta');
-  cy.get('.Spela');
-  cy.get('.Nya');
+  cy.get('.Fortsätta').should('contain.text', 'Fortsätta');
+  cy.get('.Spela').should('contain.text', 'Spela');
+  cy.get('.Nya').should('contain.text', 'Nya');
 });
