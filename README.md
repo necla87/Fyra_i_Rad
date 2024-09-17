@@ -1,27 +1,30 @@
-# Specifications Fyra_i_Rad
-We have used javascript in visual studio code to write our program. We have done our test with vitest, also we have used mock-prompt to help us do the tests because prompt can create a conflict. 
+# Specifikationer Fyra_i_Rad
+Vi har använt oss av Javascript i Visual studio code för att skriva vårt program. Vi har gjort våra tester med hjälp av Cypress och Cucumber. Vi har använt HTML och CSS för att göra vårt gränsnitt och testa gränsnittet (run test -ui).
 
-## Board / Detailed Specs
-As a user I want the Board class to manage setting up the board, handle moves on the board, displaying the board and have an opportunity to have a new game in board. If the players got a draw, the game should inform the players via an console.log.
-Players should take turns to play the game. If the game is over, the player is not able to continue to play the game.
-Player should write the column number (1-7) to place X/O.
-It is very uncommon for the players to get a draw, but if it happens the program will console.log the players.
+## Board / detaljerade specifikationer
+Som användare vill jag att klass Board ska kunna ha funktioner som att lägga pjäser på ett spelbräde som är 7x6, vems tur det är att spela, se vem som har vunnit eller om det blivit oavgjort genom att få upp en text. Även så ska brädspelet nollställas efter varje spel omgång.
+Man kan spela upp till två spelare, Spelare 1 och Spelare 2. Spelarna får fylla i sina namn i början på spelet.
+Spelarna ska turas om att spela. Om spelet är slut så ska spelarna inte kunna fortsätta att lägga pjäserna.
+Det är ovanligt för spelarna att få oavgjort, men om det händer så ska det dyka upp ett meddelande som informerar spelarna.
+
 
 ### Tested
-1.1.Check that the name is not undefined (app.js)
-1.2.Should only allow moves for the current player (gameBoard.js)
-1.3.Check that the app asks for the players name (app.js)
-1.4.Check that the players write a string and not numbers or/and symbols (app.js)
-2.1.Check that register the move correctly (gameBoard.js)
-3.2.Console.log if a player wins, so players will not be able to continue playing.(gameBoard.js)
-4.Check who is the winner (gameboard.js)
-5.Should announce a draw when the board is full with no winner (gameBoard.js)
-6.Console.log and ask the players if they want to play again, if yes a new game should start from scratch. If no the program should end. (app.js)
+2.1. Som användare ska man kunna skriva in sina namn i spelet.
+2.2.Som användare ska man kunna se vem som har vunnit spelet.
+2.3.Som användare ska man kunna turas om i spelet för att lägga en pjäs.
+3.Som användare så ska alla drag registreras korrekt på spelbrädet (dvs välja en kolumn att lägga min pjäs).
+4.Som användare ska man se vem som har vunnit genom att få ett meddelande.
+5.Som användare ska man kunna se om det blivit oavgjort.
+6.1.Som användare vill jag efter avslutat spel kunna trycka på knappen "Spela igen".
+6.2.Som användare så ska man kunna trycka på knappen "Fortsätta" när man har tryckt på "Avsluta" knappen.
+6.3.Som användare så ska man kunna trycka på knappen "Nya spelare".
+6.4.Som användare ska man kunna trycka på avsluta knappen och få upp tre alternativ (knappar), Fortsätta, spela igen, Nya spelare
+10.1.Som användare ska man inte kunna lägga mer pjäser när spelet är slut.
 
 
-#### Problems
-In the begining we had our mock-prompt outside of tests folder, that made a conflict with the tests and it did not run. After we moved the mock-prompt inside of the tests folder it worked. 
+#### Problem
+Under arbetet så har vi stött på problem. Cypress krånglade när vi skulle få den att funka ihop med vårt program, sen när vi skulle använda en äldre version av Cypress så blev det lite konflikter i package.json. Trots dessa motgångar så har vi lyckats lösa dessa problem och fått till ett fungerande program med tester.
+ 
 
-
-##### Not Tested
-We managed to test everything that we had planned in time. 
+##### Inte testade
+Vi tog bort några tester som inte kunde testas i vårt program. 
