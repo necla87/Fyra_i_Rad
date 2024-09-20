@@ -1,4 +1,4 @@
-import Dialog from './dialog.js';
+import Dialog from './Dialog.js';
 import Board from './Board.js';
 import Player from './Player.js';
 import sleep from './helpers/sleep.js';
@@ -11,39 +11,49 @@ export default class App {
     this.board.currentPlayerColor = whoStarts;
     this.whoStarts = whoStarts;
     this.setPlayAgainGlobals();
+
+    // replay with existing players
     if (playerX && playerO) {
       this.playerX = playerX;
       this.playerO = playerO;
+      this.playerX.board = this.board;
+      this.playerO.board = this.board;
       this.namesEntered = true;
+      this.board.initiateBotMove();
+    } else {
+      this.askForNamesAndTypes();
     }
-    else { this.askForNames(); }
     this.render();
   }
 
-  async askForNames(color = 'X') {
+  async askForNamesAndTypes(color = 'X') {
     const okName = name => name.match(/[a-zåäöA-ZÅÄÖ]{2,}/);
     let playerName = '';
+    let playerType = '';
     while (!okName(playerName)) {
       playerName = await this.dialog.ask(`Skriv in namn för ${color === 'X' ? 'spelare 1' : 'spelare 2'}:`);
-
-      // Capitalize the first letter and make the rest lowercase
-      playerName = playerName.charAt(0).toUpperCase() + playerName.slice(1).toLowerCase();
-
       await sleep(500);
+      playerType = await this.dialog.ask(
+        `Vilken typ av spelare är ${playerName}?`,
+        ['Människa', 'En enkel bot', 'En svår bot']
+      );
     }
-    this['player' + color] = new Player(playerName, color);
+    this['player' + color] = new Player(playerName, playerType, color, this.board);
     if (color === 'X') {
-      this.askForNames('O');
+      this.askForNamesAndTypes('O');
       return;
     }
     this.namesEntered = true;
     this.render();
+    this.board.initiateBotMove(); // Start bot move if the second player is a bot
+
+    // make players global for debugging
+    globalThis.playerX = this.playerX;
+    globalThis.playerO = this.playerO;
   }
 
-
-
   namePossesive(name) {
-    return name + (name.slice(-1).toLowerCase() !== 's' ? 's' : '') + ' tur...';
+    return name + (name.slice(-1).toLowerCase() !== 's' ? `'s` : `'`) + ' tur...';
   }
 
   render() {
@@ -52,23 +62,18 @@ export default class App {
     let name = player?.name || '';
 
     document.querySelector('main').innerHTML = /*html*/`
-    <h1><span class="big-number">4</span> i rad</h1>
-    ${!this.board.gameOver && player ?
-        `<p>${this.namePossesive(name)}</p>` 
-        : (this.namesEntered ? '' : '<p>Skriv in namn</p>')}
-    ${!this.board.gameOver ? '' : /*html*/`
-      ${!this.board.isADraw ? '' : `<p>Oavgjort...</p>`}
-      ${!this.board.winner ? '' : `<p>${name} vann!</p>`} <!-- Updated winner message -->
-    `}
-    ${this.board.render()}
-    <div class="buttons">
-      ${!this.board.gameOver ? this.renderQuitButton() : this.renderPlayAgainButtons()}
-    </div>
-  `;
+      <h1><span class="big-number">4</span> i rad</h1>
+      ${!this.board.gameOver && player ? `<p>${this.namePossesive(name)}</p>` : (this.namesEntered ? '' : '<p>Skriv in namn</p>')}
+      ${!this.board.gameOver ? '' : /*html*/`
+        ${!this.board.isADraw ? '' : `<p>Oavgjort...</p>`}
+        ${!this.board.winner ? '' : `<p>${name} vann!</p>`}
+      `}
+      ${this.board.render()}
+      <div class="buttons">
+        ${!this.board.gameOver ? this.renderQuitButton() : this.renderPlayAgainButtons()}
+      </div>
+    `;
   }
-
-
-
 
   renderQuitButton() {
     if (!this.namesEntered) { return ''; }
@@ -76,7 +81,7 @@ export default class App {
     globalThis.quitGame = async () => {
       let answer = await this.dialog.ask(
         'Vad vill du göra?',
-        ['Fortsätta', 'Spela igen', 'Nya spelare']
+        ['Fortsätta spelet', 'Spela igen', 'Nya spelare']
       );
       answer === 'Spela igen' && globalThis.playAgain();
       answer === 'Nya spelare' && globalThis.newPlayers();
@@ -84,38 +89,26 @@ export default class App {
 
     return /*html*/`
       <div class="button" onclick="quitGame()">
-        Avsluta
+        Avsluta spelet
       </div>
     `;
   }
 
   setPlayAgainGlobals() {
     globalThis.playAgain = async () => {
-      // Determine which player will start
       let playerToStart = this.whoStarts === 'X' ? this.playerO : this.playerX;
-
-      // Display the message with the player's name and role
       await this.dialog.ask(
-        `Det är ${playerToStart.name}s tur att starta som ${playerToStart.color === 'X' ? 'Spelare 1' : 'Spelare 2'}!`,
-        ['OK']
+        `Det är ${this.namePossesive(playerToStart.name)} tur att starta!`, ['OK']
       );
-
-      // Start a new game with the current players
       new App(this.playerX, this.playerO, playerToStart.color);
-    };
-
+    }
     globalThis.newPlayers = () => new App();
   }
 
-
-
   renderPlayAgainButtons() {
-    // why not use the button element? 
-    // div tags are easier to style in a cross-browser-compatible way
     return /*html*/`
-      <div class="button" href="#" onclick="playAgain()">Spela igen</div>
-      <div class="button" href="#" onclick="newPlayers()">Nya spelare</div>
+      <div class="button" onclick="playAgain()">Spela igen</div>
+      <div class="button" onclick="newPlayers()">Nya spelare</div>
     `;
   }
-
 }

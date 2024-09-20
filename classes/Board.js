@@ -1,16 +1,20 @@
+import Cell from './Cell.js';
+import WinChecker from './WinChecker.js';
+
 export default class Board {
   constructor(app) {
     this.app = app;
     this.rows = 6; // Number of rows
     this.columns = 7; // Number of columns
     this.matrix = [...new Array(this.rows)].map(() =>
-      [...new Array(this.columns)].map(() => ' ')
+      [...new Array(this.columns)].map(() => new Cell())
     );
     this.currentPlayerColor = 'X'; // Start with player X
     this.winner = false;
     this.isADraw = false;
     this.gameOver = false;
     this.winningCombo = [];
+    this.winChecker = new WinChecker(this);
   }
 
   render() {
@@ -27,7 +31,7 @@ export default class Board {
       this.app.namesEntered && !this.gameOver
     );
 
-    // Render the board
+    // Render the game board
     return /*html*/ `<div class="board">
       ${this.matrix
         .map(
@@ -36,7 +40,7 @@ export default class Board {
               .map(
                 (cell, columnIndex) => /*html*/ `
               <div
-                class="cell ${cell} ${this.winningCombo.includes(
+                class="cell ${cell.color} ${this.winningCombo.includes(
                   'row' + rowIndex + 'column' + columnIndex
                 )
                     ? 'in-win'
@@ -58,73 +62,52 @@ export default class Board {
     if (color !== this.currentPlayerColor) return false;
     if (isNaN(column) || column < 0 || column >= this.columns) return false;
 
-    // Find the lowest empty row in the selected column
+    // Find the lowest empty row in the chosen column
     let row = this.rows - 1;
-    while (row >= 0 && this.matrix[row][column] !== ' ') {
+    while (row >= 0 && this.matrix[row][column].color !== ' ') {
       row--;
     }
 
     if (row < 0) return false; // Column is full
 
-    // Place the player's token in the selected column
-    this.matrix[row][column] = color;
+    // Place the player's token in the chosen column
+    this.matrix[row][column].color = color;
     this.winner = this.winCheck();
     this.isADraw = this.drawCheck();
     this.gameOver = this.winner || this.isADraw;
-    !this.gameOver &&
-      (this.currentPlayerColor = this.currentPlayerColor === 'X' ? 'O' : 'X');
+    if (!this.gameOver) {
+      this.currentPlayerColor = this.currentPlayerColor === 'X' ? 'O' : 'X';
+      this.initiateBotMove(); // Start bot's turn if next player is a bot
+    }
     return true;
   }
 
   winCheck() {
-    let m = this.matrix;
-    let directions = [
-      { row: 0, col: 1 }, // Horizontal
-      { row: 1, col: 0 }, // Vertical
-      { row: 1, col: 1 }, // Diagonal down-right
-      { row: 1, col: -1 }, // Diagonal down-left
-    ];
-
-    // Loop through each cell and check in each direction for 4 in a row
-    for (let r = 0; r < this.rows; r++) {
-      for (let c = 0; c < this.columns; c++) {
-        let color = m[r][c];
-        if (color === ' ') continue;
-
-        for (let { row, col } of directions) {
-          let winningCombo = [];
-          let count = 0;
-
-          // Check 4 cells in the current direction
-          for (let i = 0; i < 4; i++) {
-            let newRow = r + i * row;
-            let newCol = c + i * col;
-
-            if (
-              newRow >= 0 &&
-              newRow < this.rows &&
-              newCol >= 0 &&
-              newCol < this.columns &&
-              m[newRow][newCol] === color
-            ) {
-              count++;
-              winningCombo.push('row' + newRow + 'column' + newCol);
-            } else {
-              break;
-            }
-          }
-
-          if (count === 4) {
-            this.winningCombo = winningCombo;
-            return color;
-          }
-        }
-      }
-    }
-    return false;
+    return this.winChecker.winCheck();
   }
 
   drawCheck() {
-    return !this.winCheck() && !this.matrix.flat().includes(' ');
+    return !this.winCheck() && !this.matrix.flat().map(cell => cell.color).includes(' ');
+  }
+
+  async initiateBotMove() {
+    // Get the current player
+    let player = this.currentPlayerColor === 'X' ? this.app.playerX : this.app.playerO;
+
+    // If the game isn't over and the player exists and the player is non-human / a bot
+    if (!this.gameOver && player && player.type !== 'Human') {
+      document.body.classList.add('botPlaying');
+
+      // The bot needs to choose a column to place its token
+      const column = await player.makeBotMove();
+
+      // Check if the move was valid
+      if (column !== null && column >= 0 && column < this.columns) {
+        this.makeMove(this.currentPlayerColor, column);
+        this.app.render();
+      }
+
+      document.body.classList.remove('botPlaying');
+    }
   }
 }
