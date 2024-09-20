@@ -60,7 +60,7 @@ export default class Board {
     let player = color === 'X' ? this.app.playerX : this.app.playerO;
 
     // Don't allow move fromClick if it's a bot's turn to play
-    if (fromClick && player.type !== 'Human') { return; }
+    if (fromClick && player.type !== 'Människa') { return; }
 
     // Don't make any move if the game is over
     if (this.gameOver) { return false; }
@@ -119,7 +119,7 @@ export default class Board {
     let player = this.currentPlayerColor === 'X' ? this.app.playerX : this.app.playerO;
 
     // If the game isn't over and the player exists and the player is non-human / a bot
-    if (!this.gameOver && player && player.type !== 'Human') {
+    if (!this.gameOver && player && player.type !== 'Manniska') {
       document.body.classList.add('botPlaying');
 
       // The bot needs to choose a column to place its token
