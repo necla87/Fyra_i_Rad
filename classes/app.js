@@ -4,7 +4,6 @@ import Player from './Player.js';
 import sleep from './helpers/sleep.js';
 
 export default class App {
-
   constructor(playerX, playerO, whoStarts = 'X') {
     this.dialog = new Dialog();
     this.board = new Board(this);
@@ -57,6 +56,7 @@ export default class App {
   }
 
   render() {
+    // Update the player reference based on current color
     let color = this.board.currentPlayerColor;
     let player = color === 'X' ? this.playerX : this.playerO;
     let name = player?.name || '';
@@ -64,10 +64,10 @@ export default class App {
     document.querySelector('main').innerHTML = /*html*/`
       <h1><span class="big-number">4</span> i rad</h1>
       ${!this.board.gameOver && player ? `<p>${this.namePossesive(name)}</p>` : (this.namesEntered ? '' : '<p>Skriv in namn</p>')}
-      ${!this.board.gameOver ? '' : /*html*/`
-        ${!this.board.isADraw ? '' : `<p>Oavgjort...</p>`}
-        ${!this.board.winner ? '' : `<p>${name} vann!</p>`}
-      `}
+      ${this.board.gameOver ? /*html*/`
+        ${this.board.isADraw ? `<p>Oavgjort...</p>` : ''}
+        ${this.board.winner ? `<p>${name} vann!</p>` : ''}
+      ` : ''}
       ${this.board.render()}
       <div class="buttons">
         ${!this.board.gameOver ? this.renderQuitButton() : this.renderPlayAgainButtons()}

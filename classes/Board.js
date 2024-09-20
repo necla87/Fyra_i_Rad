@@ -42,16 +42,14 @@ export default class Board {
               <div
                 class="cell ${cell.color} ${this.winningCombo.includes(
                   'row' + rowIndex + 'column' + columnIndex
-                )
-                    ? 'in-win'
-                    : ''
-                  }"
+                ) ? 'in-win' : ''}"
                 onclick="makeMoveOnClick(${columnIndex})">
               </div>
             `
               )
               .join('')}</div>`
         )
+        .reverse() // Reverse the rows to display from top to bottom
         .join('')}
     </div>`;
   }
@@ -77,13 +75,13 @@ export default class Board {
     // Check that the column is within the valid range
     if (column < 0 || column >= this.matrix[0].length) { return false; }
 
-    // Find the lowest empty row in the specified column
+    // Find the highest empty row in the specified column (changed from lowest to highest)
     let row = this.matrix.findIndex((cell) => cell[column].color === ' ');
 
     // If the column is full (no empty row), don't make the move
     if (row === -1) { return false; }
 
-    // Make the move by placing the token in the lowest available row
+    // Make the move by placing the token in the highest available row
     this.matrix[row][column].color = color;
 
     // Check if someone has won or if it's a draw/tie and update properties
@@ -105,7 +103,6 @@ export default class Board {
     return true;
   }
 
-
   winCheck() {
     return this.winChecker.winCheck();
   }
@@ -115,17 +112,12 @@ export default class Board {
   }
 
   async initiateBotMove() {
-    // Get the current player
     let player = this.currentPlayerColor === 'X' ? this.app.playerX : this.app.playerO;
 
-    // If the game isn't over and the player exists and the player is non-human / a bot
-    if (!this.gameOver && player && player.type !== 'Manniska') {
+    if (!this.gameOver && player && player.type !== 'Människa') {
       document.body.classList.add('botPlaying');
-
-      // The bot needs to choose a column to place its token
       const column = await player.makeBotMove();
 
-      // Check if the move was valid
       if (column !== null && column >= 0 && column < this.columns) {
         this.makeMove(this.currentPlayerColor, column);
         this.app.render();
