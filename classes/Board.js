@@ -56,31 +56,55 @@ export default class Board {
     </div>`;
   }
 
-  makeMove(color, column) {
-    if (this.gameOver) return false;
-    if (color !== 'X' && color !== 'O') return false;
-    if (color !== this.currentPlayerColor) return false;
-    if (isNaN(column) || column < 0 || column >= this.columns) return false;
+  makeMove(color, column, fromClick) {
+    let player = color === 'X' ? this.app.playerX : this.app.playerO;
 
-    // Find the lowest empty row in the chosen column
-    let row = this.rows - 1;
-    while (row >= 0 && this.matrix[row][column].color !== ' ') {
-      row--;
-    }
+    // Don't allow move fromClick if it's a bot's turn to play
+    if (fromClick && player.type !== 'Human') { return; }
 
-    if (row < 0) return false; // Column is full
+    // Don't make any move if the game is over
+    if (this.gameOver) { return false; }
 
-    // Place the player's token in the chosen column
+    // Check that the color is X or O - otherwise don't make the move
+    if (color !== 'X' && color !== 'O') { return false; }
+
+    // Check that the color matches the player's turn - otherwise don't make the move
+    if (color !== this.currentPlayerColor) { return false; }
+
+    // Check that the column is a number - otherwise don't make the move
+    if (isNaN(column)) { return false; }
+
+    // Check that the column is within the valid range
+    if (column < 0 || column >= this.matrix[0].length) { return false; }
+
+    // Find the lowest empty row in the specified column
+    let row = this.matrix.findIndex((cell) => cell[column].color === ' ');
+
+    // If the column is full (no empty row), don't make the move
+    if (row === -1) { return false; }
+
+    // Make the move by placing the token in the lowest available row
     this.matrix[row][column].color = color;
+
+    // Check if someone has won or if it's a draw/tie and update properties
     this.winner = this.winCheck();
     this.isADraw = this.drawCheck();
+
+    // The game is over if someone has won or if it's a draw
     this.gameOver = this.winner || this.isADraw;
+
+    // Change the current player color, if the game is not over
     if (!this.gameOver) {
       this.currentPlayerColor = this.currentPlayerColor === 'X' ? 'O' : 'X';
-      this.initiateBotMove(); // Start bot's turn if next player is a bot
     }
+
+    // Make bot move if the next player is a bot
+    this.initiateBotMove();
+
+    // Return true if the move could be made
     return true;
   }
+
 
   winCheck() {
     return this.winChecker.winCheck();

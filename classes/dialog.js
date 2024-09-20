@@ -3,14 +3,20 @@ export default class Dialog {
   // call with await!
   ask(question, limitedAnswers) {
 
-    // render html for the dialog
+    // mock answer for tests
+    let mockAnswers = globalThis.mockAnswers;
+    if (mockAnswers instanceof Array && mockAnswers.length > 0) {
+      return mockAnswers.shift();
+    }
+
+    // render HTML for the dialog
     let dialogElement = document.querySelector('dialog');
     dialogElement.innerHTML = /*html*/`
       <div class="dialog-content">
         ${!question ? '' : `<h2>${question}</h2>`}
         <form method="dialog" name="dialog" onsubmit="return dialogAnswer(event)">
           ${!limitedAnswers ?
-            /*html*/`<input type="text" name="answer">` :
+            /*html*/`<input type="text" name="answer" placeholder="Skriv ditt svar här">` :
             /*html*/ `<div class="buttons">${limitedAnswers.map(answer =>/*html*/`
             <input
               onclick="globalThis.answer=this.value"

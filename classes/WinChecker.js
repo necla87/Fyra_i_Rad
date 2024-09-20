@@ -12,10 +12,10 @@ export default class WinChecker {
   calculateWinCombos() {
     let m = this.matrix;
     let directions = [
-      { row: 0, col: 1 },   // Horisontell
-      { row: 1, col: 0 },   // Vertikal
-      { row: 1, col: 1 },   // Diagonal nedåt höger
-      { row: 1, col: -1 }   // Diagonal nedåt vänster
+      { row: 0, col: 1 },   // Horizontal
+      { row: 1, col: 0 },   // Vertical
+      { row: 1, col: 1 },   // Diagonal down-right
+      { row: 1, col: -1 }   // Diagonal down-left
     ];
 
     // Loop through the board to find all possible win combinations
