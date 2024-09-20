@@ -7,7 +7,7 @@ export default class Player {
     this.name = name;
     this.type = type;
     this.color = color;
-    this.opponent = this.color === 'X' ? 'O' : 'X';
+    this.opponent = this.color === 'X' ? 'spelare 1' : 'spelare 2';
     this.board = board;
   }
 
