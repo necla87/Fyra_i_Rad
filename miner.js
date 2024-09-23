@@ -1,5 +1,5 @@
 // aiLevel = 1-10 (hur bra AI:n är)
-// state - en sträng med alla drag hittills med kolumnerna mellan 1-7
+// state - en sträng med alla drag hittills med kolumnerna mellan 0-6
 // t.ex. '413' kan utläsas 
 // - spelare 1 spelade kolumn 4, 
 // - sedan spelade spelare 2 kolumn 1, 
