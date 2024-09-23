@@ -16,10 +16,10 @@ export default class Player {
     // (simulate that it takes time for it to think)
     await sleep(500);
     let column;
-    if (this.type === 'A dumb bot') {
+    if (this.type === 'En enkel bot') {
       column = this.makeDumbBotMove();
     }
-    if (this.type === 'A smart bot') {
+    if (this.type === 'En svår bot') {
       column = this.makeSmartBotMove();
     }
     await this.board.makeMove(this.color, column);

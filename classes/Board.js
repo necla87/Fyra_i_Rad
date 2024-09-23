@@ -45,7 +45,7 @@ export default class Board {
     let player = color === 'X' ? this.app.playerX : this.app.playerO;
 
     // Don't allow move if it's a bot's turn and the click event came from a player
-    if (fromClick && player.type !== 'Human') return;
+    if (fromClick && player.type !== 'Människa') return;
 
     // Check if the game is over
     if (this.gameOver) return false;
@@ -98,7 +98,7 @@ export default class Board {
 
   async initiateBotMove() {
     let player = this.currentPlayerColor === 'X' ? this.app.playerX : this.app.playerO;
-    if (!this.gameOver && player && player.type !== 'Human') {
+    if (!this.gameOver && player && player.type !== 'Människa') {
       document.body.classList.add('botPlaying');
       await player.makeBotMove();
       this.app.render();
