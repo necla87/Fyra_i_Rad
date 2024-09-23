@@ -19,7 +19,7 @@ export default class WinCombo {
   }
 
   isWin(color) {
-    // if all four cells are the same color we have a win
+    // if all four cells are the same color, we have a win
     return this.numberOfCells(color) === 4;
   }
 
