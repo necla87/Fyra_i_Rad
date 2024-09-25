@@ -5,8 +5,7 @@ Feature: Knappar till botar
 
   Scenario: Olika knappar
     Given att användaren är på startsidan först
-    When användaren skriver in ett namn
-    And trycker på enter
+    When användaren skriver in ett namn och trycker på enter
     Then ska användare kunna välja om man vill spela mot en enkel eller en svårt bot
 
 
