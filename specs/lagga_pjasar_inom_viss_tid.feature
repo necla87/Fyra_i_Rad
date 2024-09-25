@@ -9,7 +9,7 @@ Feature: AI botar lämnar pjäser inom viss tid
    And spelaren skriver in ett namn för andra spelaren och trycker på enter
    And väljer svår bot
    And spelarna som är AI botar börjar spela mot varandra 
-   Then AI spelarna ska lägga sina pjäser inom en viss tid
+   Then AI spelarna ska lägga sina pjäser inom 3 sekunder
 
 
    
