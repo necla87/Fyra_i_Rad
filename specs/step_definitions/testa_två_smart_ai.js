@@ -26,19 +26,24 @@ Then('AI1 ska göra det första draget.', () => {
 Then('AI2 ska göra ett drag efter AI1.', () => {
   cy.wait(2000); // Wait for AI2 to make a move
   cy.get('.board .cell.O').should('exist');
+  cy.wait(15000);
 });
 
 // Step definition to check for game outcome (win or draw)
 Then('spelet ska fortsätta tills någon vinner eller det blir oavgjort.', () => {
-  // Wait for the game to proceed and either end in a win or draw
-  cy.wait(20000);
+  cy.get('p').should('be.visible').then(($p) => {
+    const resultText = $p.text();
 
-  // Check for a winner or a draw (full board with no winner)
-  cy.get('.board').then(($board) => {
-    if ($board.find('.winner').length > 0) {
-      cy.log('The game has a winner.');
-    } else if ($board.find('.board-cell:empty').length === 0) {
-      cy.log('The game is a draw.');
+    // Verify the result text includes either "vann" or "oavgjort"
+    if (resultText.includes('oavgjort')) {
+      cy.log('Game ended in a draw.');
+      cy.wrap($p).should('contain', 'Det blev oavgjort...');
+    } else if (resultText.includes('vann')) {
+      cy.log('A player has won the game.');
+      cy.wrap($p).should('contain', 'vann');
+    } else {
+      throw new Error('Result text does not indicate a win or draw.');
     }
   });
 });
+  
