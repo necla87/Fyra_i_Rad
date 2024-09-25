@@ -1,0 +1,17 @@
+import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
+
+Given('att användaren är på startsidan först', () => {
+  // TODO: implement step
+});
+
+When('användaren skriver in ett namn', () => {
+  // TODO: implement step
+});
+
+When('trycker på enter', () => {
+  // TODO: implement step
+});
+
+Then('ska användare kunna välja om man vill spela mot en enkel eller en svårt bot', () => {
+  // TODO: implement step
+});

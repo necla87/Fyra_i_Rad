@@ -1,0 +1,29 @@
+import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
+
+Given('att användare är på start sidan', () => {
+  // TODO: implement step
+});
+
+When('spelarna har angett sina namn', () => {
+  // TODO: implement step
+});
+
+When('spelet körs igång', () => {
+  // TODO: implement step
+});
+
+When('det går att se vems tur det är att börja', () => {
+  // TODO: implement step
+});
+
+When('spelets körs igång', () => {
+  // TODO: implement step
+});
+
+When('någon av spelarna får fyra i rad', () => {
+  // TODO: implement step
+});
+
+Then('ska användaren få möjlighet att kunna välja nya spelare genom att trycka på knappen', () => {
+  // TODO: implement step
+});

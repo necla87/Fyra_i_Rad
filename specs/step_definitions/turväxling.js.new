@@ -1,0 +1,25 @@
+import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
+
+Given('att spelet har börjat och användaren har angett sitt namn {string} och {string}', (a, b) => {
+  // TODO: implement step
+});
+
+Given('spelet är i gång.', () => {
+  // TODO: implement step
+});
+
+When('ANNA placerar sin pjäs på spelplanen', () => {
+  // TODO: implement step
+});
+
+Then('ska spelet visa {string}.', (a) => {
+  // TODO: implement step
+});
+
+When('OLLE placerar sin pjäs på spelplanen', () => {
+  // TODO: implement step
+});
+
+Then('ska spelet ser {string}', (a) => {
+  // TODO: implement step
+});
