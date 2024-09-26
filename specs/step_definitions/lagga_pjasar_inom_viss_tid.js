@@ -1,57 +1,47 @@
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 
 Given('att användaren befinner sig på spelsidan', () => {
-  // TODO: implement step
   cy.visit('/');
 });
 
 When('spelaren skriver in ett namn för första spelaren och trycker på enter', () => {
-  // TODO: implement step
-  // Ange namn och välj enkel bot för första spelaren
+  cy.wait(2000);
   cy.get('input[name="answer"]').type('Tara' + '{enter}');
 });
 
-When('väljer enkel bot', () => {
-  // TODO: implement step
+When('väljer knappen Människa', () => {
   cy.get('form > .buttons');
-  cy.get('.enkel').click();
+  cy.wait(2000);
+  cy.get('.Människa').click();
 });
 
 When('spelaren skriver in ett namn för andra spelaren och trycker på enter', () => {
-  // TODO: implement step
+  cy.wait(2000);
   cy.get('input[name="answer"]').type('Erika' + '{enter}');
 });
 
-When('väljer svår bot', () => {
-  // TODO: implement step
+When('väljer knappen svår bot', () => {
+  cy.wait(2000);
   cy.get('form > .buttons');
   cy.get('.svår').click();
 });
 
-When('spelarna som är AI botar börjar spela mot varandra', () => {
-  // TODO: implement step
+When('spelarna börjar spela mot varandra', () => {
   cy.get('div.board')
     .should('be.visible');
+  cy.get(':nth-child(39)').click(); //användaren placerar sin pjäs i kolumn 4
 });
 
-Then('AI spelarna ska lägga sina pjäser inom 3 sekunder', () => {
-  // TODO: implement step
-  //it- är ett sätt att testa en specifik funktion i koden och kollar det som förväntas göras
+Then('spelarna ska lägga sina pjäser inom 3 sekunder', () => {
+   
+      // Kontrollera att AI:n lägger sin pjäs inom 3 sekunder
+      cy.clock(); // Initiera Cypress klockan
+ 
+      cy.get('.cell.X').should('exist');
+  
+      cy.tick(3000); // Simulera att 3 sekunder går
 
-  //describe('Fyra i rad - AI-botar lägger sina pjäser inom viss tid', () => {
-
-    const AI_MOVE_TIME_LIMIT = 3000; // 3 sekunder
-
-    it('AI-botar ska lägga sina pjäser inom en viss tid', () => {
-
-
-      // Kontrollera att AI lägger pjäser inom tidsgränsen
-      cy.get('.last-move').should('be.visible').and(($move) => {
-        // Kontrollera att draget sker inom 3 sekunder
-        cy.wrap($move).should('exist');
-        cy.wait(AI_MOVE_TIME_LIMIT);
-      });
-    });
- // });
-
+      // Kontrollera att AI:n har gjort sitt drag
+      cy.get('.cell.O').should('exist'); //'.cell.O' CSS-selektorn för AI:s pjäser.
+  
 });

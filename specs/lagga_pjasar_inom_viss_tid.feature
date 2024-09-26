@@ -5,11 +5,11 @@ Feature: AI botar lämnar pjäser inom viss tid
    Scenario: Tidslimit för att lägga pjäser
    Given att användaren befinner sig på spelsidan
    When spelaren skriver in ett namn för första spelaren och trycker på enter 
-   And väljer enkel bot
+   And väljer knappen Människa
    And spelaren skriver in ett namn för andra spelaren och trycker på enter
-   And väljer svår bot
-   And spelarna som är AI botar börjar spela mot varandra 
-   Then AI spelarna ska lägga sina pjäser inom 3 sekunder
+   And väljer knappen svår bot
+   And spelarna börjar spela mot varandra 
+   Then spelarna ska lägga sina pjäser inom 3 sekunder
 
 
    
