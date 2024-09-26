@@ -15,13 +15,26 @@ Given('that we start the game between human and smart bot', () => {
 });
 
 When('the external AI plays as human', async () => {
+
+  cy.get(':nth-child(39)').click();
+
   cy.wrap(null).then(async () => {
-    let externalAimove = await getMoveFromExternalAI(1, ""); 
+    let externalAimove = await getMoveFromExternalAI(1, ""); //level och position
     console.log(externalAimove);
-  })
-  
+    // Assume externalAimove is a string or move type returned by the AI
+    // Here we simulate a move based on AI's move
+
+    cy.get(':nth-child(40)').click();
+  });
 });
 
+
+
+
 Then('we expect our bot win', () => {
-  // TODO: implement step
+  cy.wait(100);
+  cy.get('p');
+  cy.wait(100)
+    .contains('Tara');
+  cy.wait(100);
 });

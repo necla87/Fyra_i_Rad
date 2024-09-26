@@ -22,10 +22,7 @@
   clear: both;
 }
 /* Style for each row, primarily for internal structure */
-.row {
-  /* display: contents; */
-  /* Allows each cell to align according to the board grid */
-}
+
 
 /* Style for each cell */
 .cell {
