@@ -8,7 +8,7 @@ Spelarna ska turas om att spela. Om spelet är slut så ska spelarna inte kunna 
 Det är ovanligt för spelarna att få oavgjort, men om det händer så ska det dyka upp ett meddelande som informerar spelarna.
 
 
-### Tested
+### Testade
 1.Som användare ska jag kunna se att 2 smart AI spelar mot varandra och kunna se resultat.
 3.Som användare ska jag kunna välja om jag vill spela mot en enkel eller en svår bot genom olika knapp alternativ.
 4.Som användare vill jag att AI bot ska lägga sina pjäser inom en viss tid.
