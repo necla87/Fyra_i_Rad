@@ -1,4 +1,4 @@
-# Specifikationer Fyra_i_Rad
+# Specifikationer Fyra_i_Rad sprint 2
 Vi har använt oss av Javascript i Visual studio code för att skriva vårt program. Vi har gjort våra tester med hjälp av Cypress och Cucumber. Vi har använt HTML och CSS för att göra vårt gränsnitt och testa gränsnittet (run test -ui).
 
 ## Board / detaljerade specifikationer
