@@ -1,4 +1,4 @@
-# Specifications Fyra_i_Rad
+# Specifications Fyra_i_Rad sprint 1
 We have used javascript in visual studio code to write our program. We have done our test with vitest, also we have used mock-prompt to help us do the tests because prompt can create a conflict. 
 
 ## Board / Detailed Specs
