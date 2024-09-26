@@ -8,7 +8,7 @@ Spelarna ska turas om att spela. Om spelet är slut så ska spelarna inte kunna 
 Det är ovanligt för spelarna att få oavgjort, men om det händer så ska det dyka upp ett meddelande som informerar spelarna.
 
 
-### Tested
+### Testade
 2.1. Som användare ska man kunna skriva in sina namn i spelet.
 2.2.Som användare ska man kunna se vem som har vunnit spelet.
 2.3.Som användare ska man kunna turas om i spelet för att lägga en pjäs.
