@@ -29,19 +29,12 @@ When('väljer knappen svår bot', () => {
 When('spelarna börjar spela mot varandra', () => {
   cy.get('div.board')
     .should('be.visible');
-  cy.get(':nth-child(39)').click(); //användaren placerar sin pjäs i kolumn 4
+  cy.get(':nth-child(39)').click(); 
 });
 
 Then('spelarna ska lägga sina pjäser inom 3 sekunder', () => {
-   
-      // Kontrollera att AI:n lägger sin pjäs inom 3 sekunder
-      cy.clock(); // Initiera Cypress klockan
- 
-      cy.get('.cell.X').should('exist');
-  
-      cy.tick(3000); // Simulera att 3 sekunder går
-
-      // Kontrollera att AI:n har gjort sitt drag
-      cy.get('.cell.O').should('exist'); //'.cell.O' CSS-selektorn för AI:s pjäser.
-  
+  cy.clock(); 
+  cy.get('.cell.X').should('exist');
+  cy.tick(3000); 
+  cy.get('.cell.O').should('exist');  
 });
