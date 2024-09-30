@@ -1,16 +1,20 @@
 import Cell from './Cell.js';
 import WinChecker from './WinChecker.js';
+import Network from './helpers/Network.js';
 
 export default class Board {
   constructor(app) {
     this.app = app;
-    // Create a 6x7 matrix representing the Connect Four board
-    this.matrix = Array.from({ length: 6 }, (row, rowIndex) =>
-      Array.from({ length: 7 }, (column, columnIndex) =>
+    // Create a 6x7 matrix for Connect Four
+    this.matrix = [...new Array(6)].map((row, rowIndex) =>
+      [...new Array(7)].map((column, columnIndex) =>
         new Cell(rowIndex, columnIndex))
     );
+    // Create a new winChecker
     this.winChecker = new WinChecker(this);
-    this.currentPlayerColor = 'X';  // Starting player
+    // Current player, whose turn is it?
+    this.currentPlayerColor = 'X';
+    // Status of game (updated after each move)
     this.winner = false;
     this.isADraw = false;
     this.gameOver = false;
@@ -18,91 +22,108 @@ export default class Board {
   }
 
   render() {
-    // Create the event handler called on click to handle column-based moves
+    // Create the event handler called on click:
+    // makeMove and if makeMove returns true
+    // then call the app render method
     globalThis.makeMoveOnClick = (column) =>
-      this.makeMove(this.currentPlayerColor, column, true) && this.app.render();
+      this.makeMove(this.currentPlayerColor, column, true)
+      && this.app.render();
 
-    // Set statuses for styling purposes
-    document.body.setAttribute('currentPlayerColor', this.gameOver ? '' : this.currentPlayerColor);
-    document.body.setAttribute('gameInProgress', this.app.namesEntered && !this.gameOver);
+    // Set some statuses as attributes to the body
+    document.body.setAttribute('currentPlayerColor',
+      this.gameOver ? '' : this.currentPlayerColor);
+    document.body.setAttribute('gameInProgress',
+      this.app.namesEntered && !this.gameOver);
 
     // Render the board as HTML
     return /*html*/`<div class="board">
-      ${this.matrix.map((row, rowIndex) =>
-      row.map((cell, columnIndex) => /*html*/`
-          <div
-            class="cell ${cell.color} 
-            ${this.winningCombo && this.winningCombo.cells.find(
-        cell => cell.row === rowIndex && cell.column === columnIndex
+      ${this.matrix.map((row) =>
+      row.map((cell) => /*html*/`
+        <div
+          class="cell ${cell} 
+          ${this.winningCombo && this.winningCombo.cells.find(
+        winningCell => winningCell.row === cell.row && winningCell.column === cell.column
       ) ? 'in-win' : ''}"
-            onclick="makeMoveOnClick(${columnIndex})">
-          </div>
-        `).join('')).join('')}
+          onclick="makeMoveOnClick(${cell.column})">
+        </div>
+      `).join('')).join('')}
     </div>`;
   }
 
   makeMove(color, column, fromClick) {
     let player = color === 'X' ? this.app.playerX : this.app.playerO;
+    // Don't allow move fromClick if it's network play and not myColor
+    if (fromClick && this.app.networkPlay && color !== this.app.myColor) {
+      return false;
+    }
+    // Don't allow move fromClick if it's a bot's turn to play
+    if (fromClick && player.type !== 'Människa') { return false; }
+    // Don't make any move if the game is over
+    if (this.gameOver) { return false; }
+    // Check that the color is X or O - otherwise don't make the move
+    if (color !== 'X' && color !== 'O') { return false; }
+    // Check that the color matches the player's turn - otherwise don't make the move
+    if (color !== this.currentPlayerColor) { return false; }
+    // Check that the column is valid
+    if (isNaN(column) || column < 0 || column >= this.matrix[0].length) { return false; }
 
-    // Don't allow move if it's a bot's turn and the click event came from a player
-    if (fromClick && player.type !== 'Människa') return;
+    // Find the lowest empty row in the column
+    const row = this.findLowestEmptyRow(column);
+    if (row === -1) { return false; } // Column is full
 
-    // Check if the game is over
-    if (this.gameOver) return false;
-
-    // Validate that the column index is within the grid
-    if (column < 0 || column >= this.matrix[0].length) return false;
-
-    // Find the lowest available row in the column
-    let row = this.findAvailableRow(column);
-    if (row === -1) return false;  // No available row in this column
-
-    // Place the token
+    // Make the move
     this.matrix[row][column].color = color;
-
-    // Check for a winner or draw, then update game status
+    // Check if someone has won or if it's a draw/tie and update properties
     this.winner = this.winCheck();
     this.isADraw = this.drawCheck();
+    // The game is over if someone has won or if it's a draw
     this.gameOver = this.winner || this.isADraw;
 
-    // Switch players if the game is still ongoing
-    if (!this.gameOver) {
-      this.currentPlayerColor = this.currentPlayerColor === 'X' ? 'O' : 'X';
-    }
+    // If network play then send the move
+    this.app.networkPlay && this.app.myColor === color &&
+      Network.send({ color, row, column });
 
-    // Make a bot move if needed
+    // Change the current player color, if the game is not over
+    !this.gameOver
+      && (this.currentPlayerColor = this.currentPlayerColor === 'X' ? 'O' : 'X');
+    // Make bot move if the next player is a bot
     this.initiateBotMove();
 
+    // Return true if the move could be made
     return true;
   }
 
-  findAvailableRow(column) {
-    // Find the lowest available row in the given column
+  findLowestEmptyRow(column) {
     for (let row = this.matrix.length - 1; row >= 0; row--) {
       if (this.matrix[row][column].color === ' ') {
-        return row;
+        return row; // Return the lowest empty row in the column
       }
     }
-    return -1;  // No available row
+    return -1; // Return -1 if the column is full
   }
 
   winCheck() {
     return this.winChecker.winCheck();
   }
 
+  // Check for a draw/tie
   drawCheck() {
-    // The game is a draw if there are no empty cells left and no winner
+    // If no one has won and no empty positions then it's a draw
     return !this.winCheck() &&
-      !this.matrix.flat().some(cell => cell.color === ' ');
+      !this.matrix.flat().map(cell => cell.color).includes(' ');
   }
 
+  // Note: this does nothing if the player is a human
   async initiateBotMove() {
+    // Get the current player
     let player = this.currentPlayerColor === 'X' ? this.app.playerX : this.app.playerO;
+    // If the game isn't over and the player exists and the player is non-human / a bot
     if (!this.gameOver && player && player.type !== 'Människa') {
-      document.body.classList.add('botPlaying');
+      setTimeout(() => document.body.classList.add('notMyTurn'), 1);
       await player.makeBotMove();
       this.app.render();
-      document.body.classList.remove('botPlaying');
+      document.body.classList.remove('notMyTurn');
     }
   }
 }
+

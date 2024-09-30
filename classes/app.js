@@ -1,4 +1,4 @@
-import Dialog from './Dialog.js';
+import Dialog from './dialog.js';
 import Board from './Board.js';
 import Player from './Player.js';
 import Network from './helpers/Network.js';
