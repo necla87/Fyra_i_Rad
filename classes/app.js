@@ -56,7 +56,7 @@ export default class App {
       let extra = '';
       while (!this.bothNetworkPlayersHasJoined) {
         await this.dialog.ask(
-          `Send the following join code to your friend:<br>
+          `Skicka följande gå med kod till din vän:<br>
           <input type="text" name="joinCode" readonly value="${code}">${extra}`, ['OK']);
         extra = '<br>Väntar på att din vän ska gå med...'
         await sleep(500);
