@@ -1,6 +1,6 @@
 Feature: Spela om spelet online
 
-  Som användare vill jag kunna spela igen om båda spelarna vill det.Feature name
+  Som användare vill jag kunna spela igen om båda spelarna vill det.
 
   Scenario: Spela om efter att spelet är slut.
     Given att spelet är slut
