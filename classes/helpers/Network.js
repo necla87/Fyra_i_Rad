@@ -1,5 +1,5 @@
-//let urlPrefix = 'https://sse.nodehill.com';
-let urlPrefix = 'http://localhost:5500';
+let urlPrefix = 'https://sse.nodehill.com';
+//let urlPrefix = 'http://localhost:5500';
 let token, listener;
 
 export default class Network {
