@@ -29,4 +29,7 @@ When('online spelet startar igång', () => {
 Then('ska användarens drag registreras korrekt på spelbrädet i båda fönstrerna', () => {
   getIframeBody('iframe#playerX').find('div.cell:nth-child(39)').click();
   getIframeBody('iframe#playerO').find('div.cell:nth-child(39)').should('be.visible');
+  cy.wait(1000)
+  getIframeBody('iframe#playerO').find('div.cell:nth-child(38)').click();
+  getIframeBody('iframe#playerX').find('div.cell:nth-child(38)').should('be.visible');
 });
