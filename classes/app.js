@@ -104,8 +104,8 @@ export default class App {
 
     // make move sent to us from opponent via the network
     if (data.color && data.color !== this.myColor) {
-      let { color, row, column } = data;
-      this.board.makeMove(color, row, column, false) && this.render();
+      let { color, column } = data;
+      this.board.makeMove(color, column, false) && this.render();
     }
 
     // if playAgain sent to player O from player X, playAgain
