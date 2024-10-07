@@ -16,7 +16,7 @@ Given('det finns en Ja- och Nej knapp', () => {
   cy.get('.Nej').should('be.visible');
 });
 
-When('användaren trycker på {string} knappen', (a) => {
+When('användaren trycker på Ja knappen', () => {
   cy.get('.Ja').should('be.visible').click();
 });
 
