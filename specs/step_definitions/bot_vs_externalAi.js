@@ -19,6 +19,7 @@ When('the external AI plays as human', async () => {
   
 
   cy.wrap(null).then(async () => {
+    cy.log(memory);
     let externalAimove = await getMoveFromExternalAI(1, memory); //level och position
     memory += externalAimove;
     cy.log(externalAimove);
@@ -26,7 +27,11 @@ When('the external AI plays as human', async () => {
     // Here we simulate a move based on AI's move
 
     cy.get('.cell:nth-child(' + externalAimove + ')').click();
-    cy.wait(1000)
+    cy.wait(2000);
+    cy.get('body').invoke('attr', 'botMove').then(botMove => {
+      memory += (botMove + 1);
+    });
+    
   });
 });
 

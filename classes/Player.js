@@ -22,6 +22,7 @@ export default class Player {
     if (this.type === 'En svår bot') {
       column = this.makeSmartBotMove();
     }
+    document.body.setAttribute('botMove', column); //botMove: checks the move 
     await this.board.makeMove(this.color, column);
   }
 
