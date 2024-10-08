@@ -1,9 +1,18 @@
 # Specifikationer Fyra_i_Rad sprint 4
-
+//fortsätt jobba på!
+Vi har använt oss av Javascript i Visual studio code för att skriva vårt program. Vi har gjort våra tester med hjälp av Cypress och Cucumber. För att få igång testerna så har vi skrivit in run test -ui i terminalen. Vi har impementerat iframes i programmet så att vi kan testa att vår online funktion fungerar.
 
 ## Board / detaljerade specifikationer
 Som användare vill jag att klass Board ska kunna ha funktioner som att lägga pjäser på ett spelbräde som är 7x6, vems tur det är att spela, se vem som har vunnit eller om det blivit oavgjort genom att få upp en text. Även så ska brädspelet nollställas efter varje spel omgång.
-Man kan spela upp till två spelare, Spelare 1 och Spelare 2. Efter att en spelare har fyllt i sitt namn så får hen tre alternativ att välja mellan: att spela som människa, som en enkel bot eller svår bot. 
+
+Man kan spela upp till två spelare, Spelare 1 och Spelare 2. Som användare kan man välj att spela antingen online eller offline.
+
+Online funktion:
+Om en spelare väljer att spela online så får hen en kod som man behöver dela/skicka till den andra spelaren.
+
+Offline funktion:
+
+Efter att en spelare har fyllt i sitt namn så får hen tre alternativ att välja mellan: att spela som människa, som en enkel bot eller svår bot. 
 Spelarna ska turas om att spela. Om spelet är slut så ska spelarna inte kunna fortsätta att lägga pjäserna.
 Det är ovanligt för spelarna att få oavgjort, men om det händer så ska det dyka upp ett meddelande som informerar spelarna.
 
