@@ -40,7 +40,7 @@ When('spelet fortsätter tills brädet är fullt utan vinnare', () => {
     getIframeBody(`iframe#${player}`).find('.board .cell').eq(cellIndex).click();
 
     // Optional: Wait for the game state to update (for better stability)
-    cy.wait(500); // Adjust as needed based on how your game updates
+    cy.wait(1000); // Adjust as needed based on how your game updates
   });
 });
 
