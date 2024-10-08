@@ -3,14 +3,6 @@ Feature: Fyra i Rad - Visa vinnaren
   så att vi vet när spelet är över och vem som är vinnaren.
 
   Scenario: En spelare vinner spelet och båda spelarna kan se vinnaren
-    Given att användare är på huvudsidan för Fyra i Rad
-    When  användaren väljer att spela online
-    And   användaren väljer att "Skapa ett nytt spel"
-    And   användaren skriver in sitt namn som "Spelare 1"
-    Then  ska användaren få en gå med-kod att skicka till sin vän
-    When  Spelare 2 går med hjälp av gå med-koden
-    Then  ska båda spelarna vara anslutna
-    And   användaren ska se spelbrädet
-    When  Spelare 1 och Spelare 2 spelar tills en spelare vinner
-    Then  ska vinnaren visas på Spelare 1:s skärm
-    And   vinnaren ska visas på Spelare 2:s skärm
+    Given att vi är två spelare, där en av oss skapar ett spel medan den andra går med
+    When spelet fortsätter tills Anna vann
+    Then ska "Anna vann!" visas i fönstren för båda spelarna
