@@ -13,7 +13,7 @@ Det är ovanligt för spelarna att få oavgjort, men om det händer så ska det 
 2.Som produktägare vill jag kunna testa AI-modellen för att säkerställa att den förstår och kan lägga pjäser på spelbrädet.
 3.Som användare ska jag kunna välja om jag vill spela mot en enkel eller en svår bot genom olika knapp alternativ.
 4.Som användare vill jag att AI bot ska lägga sina pjäser inom en viss tid.
-
+5.Som systemägare vill jag kunna testa hur smart vår svåra AI är genom att testa den mot en extern AI.
 
 
 #### Problem
@@ -21,4 +21,4 @@ Det har varit svårt att implementera logiken i vårt program, även så har det
  
 
 ##### Inte testade
-5.Som systemägare vill jag kunna testa hur smart vår svåra AI är genom att testa den mot en extern AI.
+
