@@ -20,5 +20,5 @@ Det är ovanligt för spelarna att få oavgjort, men om det händer så ska det 
 Det har varit svårt att implementera logiken i vårt program, även så har det varit utmanande att få till AI-botarna. Även så har det uppstått konflikter när vi arbetat med att testa vår smarta AI mot en extern-AI. Vi har haft tekniska problem med Cypress under arbetets gång, som tur gick det att lösa genom att ladda om sidan.  
  
 
-##### Inte testade
+
 
