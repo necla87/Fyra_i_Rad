@@ -6,15 +6,15 @@ Given('att användaren vill spela online på två skärmar', () => {
 });
 
 When('användaren som vill gå med skriver in en felaktig kod', () => {
-  //spelare X 
+  
   getIframeBody('iframe#playerX').find('.button.Ja').click();
   getIframeBody('iframe#playerX').find('.button.Skapa').click();
   getIframeBody('iframe#playerX').find('input[name="answer"]').type('Tara{enter}');
   getIframeBody('iframe#playerX').find('input[name="joinCode"]').then(element => {
-    // vi har gå med koden
+    
     let joinCode = element.val();
 
-    //spelare O
+    
     getIframeBody('iframe#playerO').find('.button.Ja').click();
     getIframeBody('iframe#playerO').find('.button.Gå').click();
     getIframeBody('iframe#playerO').find('input[name="answer"]').type('Erika{enter}');

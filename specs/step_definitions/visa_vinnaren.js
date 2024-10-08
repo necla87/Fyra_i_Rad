@@ -1,5 +1,5 @@
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
-
+//ta bort!
 Given('att spelet har startat och användaren har angett sitt namn "ANNA" och "OLLE"', () => {
   cy.visit('http://localhost:5500'); 
   cy.get('dialog').find('input[name="answer"]').type('ANNA{enter}');
