@@ -1,5 +1,5 @@
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
-
+//ta bort!
 Given('Användaren skriver sitt namn som "Eva" och väljer Människa.', () => {
   cy.visit('/');
 

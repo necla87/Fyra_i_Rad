@@ -1,6 +1,6 @@
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 import { getMoveFromExternalAI } from "../../miner.js";
-
+//ta bort!
 Given('that we start the game between human and smart bot', () => {
   cy.visit('/');
   cy.get('input[name="answer"]').type('Tara' + '{enter}');
