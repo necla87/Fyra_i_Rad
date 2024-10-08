@@ -27,4 +27,4 @@ Under arbetet så har vi stött på problem. Cypress krånglade när vi skulle f
  
 
 ##### Inte testade
-Vi tog bort några tester som inte kunde testas i vårt program. 
+
