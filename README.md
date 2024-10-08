@@ -26,5 +26,5 @@ Det är ovanligt för spelarna att få oavgjort, men om det händer så ska det 
 Under arbetet så har vi stött på problem. Cypress krånglade när vi skulle få den att funka ihop med vårt program, sen när vi skulle använda en äldre version av Cypress så blev det lite konflikter i package.json. Trots dessa motgångar så har vi lyckats lösa dessa problem och fått till ett fungerande program med tester.
  
 
-##### Inte testade
+
 
