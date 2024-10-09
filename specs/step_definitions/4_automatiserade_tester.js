@@ -1,7 +1,7 @@
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 import { getIframeBody } from '../helpers/iframe.js';
 //OBS! Fixa!
-Given('att nätverksspelet är implementerat', () => {
+Given('att vi är två spelare, där en spelare bjuder in ett spel och den andra vill gå med', () => {
   cy.visit('/iframed-network-play.html');
   //Player X
   getIframeBody('iframe#playerX').find('h2').contains('Online').should('exist'); //dialog
@@ -41,7 +41,7 @@ Given('att nätverksspelet är implementerat', () => {
 
 });
 
-When('automatiserade tester körs', () => {
+When('spelet är igång tills en av spelarna vinner', () => {
   cy.wait(2000);
   //första spelaren
   getIframeBody('iframe#playerX').find('p:contains("X: Lisa\'s tur...")').should('exist');
@@ -79,7 +79,7 @@ When('automatiserade tester körs', () => {
   getIframeBody('iframe#playerX').find('div.button').contains('Nya spelare').should('exist'); //Nya spelare knapp
 });
 
-Then('ska nätverksspelet fungerar korrekt', () => {
+Then('då kan spelare välja att spela igen eller avsluta', () => {
   //spela igen
   getIframeBody('iframe#playerX').find('div.button').contains('Spela igen').click();
   getIframeBody('iframe#playerX').find('p:contains("O: Lina\'s tur...")').should('exist');
