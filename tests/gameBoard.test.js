@@ -23,33 +23,6 @@ test('should only allow moves for the current player', () => {
   expect(board.currentPlayerColor).toBe('O'); 
 });
 
-// test('should prevent moves after the game is won', () => {
-//   const board = new gameBoard();
-
-//   // Simulate moves leading to a win for Player X
-//   board.makeMove('X', 0); // Player X
-//   board.makeMove('O', 1); // Player O
-//   board.makeMove('X', 0); // Player X
-//   board.makeMove('O', 1); // Player O
-//   board.makeMove('X', 0); // Player X
-//   board.makeMove('O', 1); // Player O
-//   board.makeMove('X', 0); // Player X - wins the game
-
-//   // Verify that the game recognizes the win
-//   expect(board.winner).toBe('X');  // Check that the winner is 'X'
-//   expect(board.gameOver).toBe(true);  // Check that the game is over
-
-//   // Try to make another move after the game is over
-//   const moveAfterWin = board.makeMove('O', 2);
-
-//   // Verify that the move was not allowed and the game state did not change
-//   expect(moveAfterWin).toBe(false); // Assuming makeMove returns false if the game is over
-//   expect(board.matrix[5][2]).toBe(' '); // The cell should remain empty
-
-//   // Verify that no more moves can be made and no prompt for input appears
-//   expect(consoleOutput).toContain('Grattis X: Player 1 du har vunnit!');
-// });
-
 
 test('should announce a draw when the board is full with no winner', () => {
   

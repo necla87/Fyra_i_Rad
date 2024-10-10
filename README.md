@@ -21,6 +21,7 @@ It is very uncommon for the players to get a draw, but if it happens the program
 
 #### Problems
 In the begining we had our mock-prompt outside of tests folder, that made a conflict with the tests and it did not run. After we moved the mock-prompt inside of the tests folder it worked. 
+We have named gameboard test as x test in order to run one test in a time. Because it was going to take longer time.
 
 
 ##### Not Tested
