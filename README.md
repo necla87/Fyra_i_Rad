@@ -1,5 +1,5 @@
 # Specifikationer Fyra_i_Rad sprint 4
-//fortsätt jobba på!
+
 Vi har använt oss av Javascript i Visual studio code för att skriva vårt program. Vi har gjort våra tester med hjälp av Cypress och Cucumber. För att få igång testerna så har vi skrivit in run test -ui i terminalen. Vi har impementerat iframes i programmet så att vi kan testa att vår online funktion fungerar.
 
 ## Board / detaljerade specifikationer
@@ -8,13 +8,13 @@ Som användare vill jag att klass Board ska kunna ha funktioner som att lägga p
 Man kan spela upp till två spelare, Spelare 1 och Spelare 2. Som användare kan man välj att spela antingen online eller offline.
 
 Online funktion:
-Om en spelare väljer att spela online så får hen en kod som man behöver dela/skicka till den andra spelaren.
+
+När första dialogen dyker upp så har användaren valet att spela online eller offline. Om användaren vill spela online så trycker hen på Ja knappen när den första dialogen dyker upp. Sen får användaren olika alternativ, antingen att gå med i ett spel eller att skapa ett spel. När användaren har valt att gå med eller skapa ett spel så behöver hen skriva in sitt namn. Om en spelare väljer att skapa ett spel så får hen en kod som man behöver dela/skicka till den spelaren som vill gå med i spelet. När spelet har startat igång så kan man se vems tur det är att börja. Spelarna ska turas om att spela.  När man har spelat klart så kan man på skärmen se vem som har vunnit spelet. Man kan se den vinnande kombinationen genom att pjäserna pulserar och markeras med en annan färg. Det är ovanligt för spelarna att få oavgjort, men om det händer så ska det dyka upp ett meddelande som informerar spelarna.
 
 Offline funktion:
 
-Efter att en spelare har fyllt i sitt namn så får hen tre alternativ att välja mellan: att spela som människa, som en enkel bot eller svår bot. 
-Spelarna ska turas om att spela. Om spelet är slut så ska spelarna inte kunna fortsätta att lägga pjäserna.
-Det är ovanligt för spelarna att få oavgjort, men om det händer så ska det dyka upp ett meddelande som informerar spelarna.
+Om användaren väljer nej knappen så kan man spela offline. Spelarna behöver fylla i sina namn och välja de tre alternativ som dyker upp: att spela som människa, som en enkel bot eller svår bot. När spelet har startat igång så kan man se vems tur det är att börja. Spelarna ska turas om att spela. När man har spelat klart så kan man på skärmen se vem som har vunnit spelet. Man kan se den vinnande kombinationen genom att pjäserna pulserar och markeras med en annan färg. 
+Om spelet är slut så ska spelarna inte kunna fortsätta att lägga pjäserna. Det är ovanligt för spelarna att få oavgjort, men om det händer så ska det dyka upp ett meddelande som informerar spelarna.
 
 
 ### Testade
@@ -26,10 +26,8 @@ Det är ovanligt för spelarna att få oavgjort, men om det händer så ska det 
 1.6 Som användare vill jag kunna se om det blir oavgjort (två fönster).
 1.7 Som användare vill jag kunna få fel meddelande ifall jag skriver in fel kod.
 1.8 Som användare vill jag kunna starta ett spel online.
+2.1 Som systemägare vill jag att automatiserade tester ska köras för att säkerställa att nätverksspelet fungerar korrekt. (med cypress)
 
 #### Problem
+Vi använde oss av iframe för att testa våra online funktioner, men det skapade tekniska problem i Cypress. För att lösa vårt problem så behövde vi lägga till cy.wait i flera delar av koden för att Cypress skulle hinna hämta all information.
 
- 
-
-##### Inte testade
-2.1 Som systemägare vill jag att automatiserade tester ska köras för att säkerställa att nätverksspelet fungerar korrekt. (med cypress)
