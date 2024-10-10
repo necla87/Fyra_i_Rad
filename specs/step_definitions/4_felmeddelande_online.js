@@ -20,6 +20,7 @@ When('användaren som vill gå med skriver in en felaktig kod', () => {
     getIframeBody('iframe#playerO').find('input[name="answer"]').type('Erika{enter}');
     getIframeBody('iframe#playerO').find('dialog:contains("gå med kod") input[name="answer"]')
       .type("apa123" + '{enter}')
+    cy.wait(1000)
 
   });
 });

@@ -15,7 +15,7 @@ Given('att vi är två spelare, där en spelare bjuder in ett spel och den andra
   getIframeBody('iframe#playerX').find('input[name="answer"]').type('Lisa{enter}');
   getIframeBody('iframe#playerX').find('input[name="joinCode"]').then((element) => {
     const joinCode = element.val();
-    cy.wait(1000);
+    cy.wait(2000);
 
     getIframeBody('iframe#playerO').find('h2').contains('Online').should('exist');
     getIframeBody('iframe#playerO').find('.button.Nej').should('be.visible');
@@ -28,7 +28,7 @@ Given('att vi är två spelare, där en spelare bjuder in ett spel och den andra
     getIframeBody('iframe#playerO').find('input[name="answer"]').type('Lina{enter}');
     getIframeBody('iframe#playerO').find('dialog:contains("gå med kod") input[name="answer"]')
       .type(joinCode + '{enter}');
-    cy.wait(1000);
+    cy.wait(2000);
 
 
 
