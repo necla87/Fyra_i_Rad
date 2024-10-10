@@ -11,6 +11,7 @@ Given('att användaren kan spela online och det visas i två öppna fönster på
   getIframeBody('iframe#playerX').find('input[name="joinCode"]').then(element => {
     
     let joinCode = element.val();
+    cy.wait(1000)
 
     
     getIframeBody('iframe#playerO').find('.button.Ja').click();
@@ -18,6 +19,7 @@ Given('att användaren kan spela online och det visas i två öppna fönster på
     getIframeBody('iframe#playerO').find('input[name="answer"]').type('Erika{enter}');
     getIframeBody('iframe#playerO').find('dialog:contains("gå med kod") input[name="answer"]')
       .type(joinCode + '{enter}');
+    cy.wait(1000)
   });
 });
 
